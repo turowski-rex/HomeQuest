@@ -4,7 +4,8 @@ USE HomeQuest;
 
 -- Buyers table
 CREATE TABLE Buyers (
-	BuyerID INT PRIMARY KEY AUTO_INCREMENT
+	BuyerID INT PRIMARY KEY AUTO_INCREMENT,
+    SessionID VARCHAR(225) -- no login for buyer so sessionID required
 );
 
 -- Sellers table
@@ -12,17 +13,20 @@ CREATE TABLE Sellers (
     SellerID INT PRIMARY KEY AUTO_INCREMENT,
     FullName VARCHAR(100) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
+    Password VARCHAR(100) NOT NULL,
     DateOfBirth DATE,
     ConsentLocation BOOLEAN,
-    /*ProfilePhoto,*/
+    ProfilePhoto VARCHAR(225), -- stored as path of photo
     PhoneNumber VARCHAR(15),
     UserType ENUM('Free', 'Gold') DEFAULT 'Free'
+    
 );
 
 -- Properties table
 CREATE TABLE Properties (
     PropertyID INT PRIMARY KEY AUTO_INCREMENT,
     SellerID INT,
+    PropertyName VARCHAR(100) NOT NULL,
     Location VARCHAR(255) NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
     Size INT,
@@ -34,6 +38,12 @@ CREATE TABLE Properties (
     FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID)
 );
 
+CREATE TABLE PropertyImages (
+    ImageID INT PRIMARY KEY AUTO_INCREMENT,
+    PropertyID INT,
+    ImagePath VARCHAR(255) NOT NULL,
+    FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID)
+);
 -- PropertyVerification table
 CREATE TABLE PropertyVerification (
     VerificationID INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,32 +60,17 @@ CREATE TABLE Transactions (
     Amount DECIMAL(10, 2),
     PaymentMethod ENUM('Weekly', 'Monthly', 'Quaterly', 'Yearly'),
     TransactionDate DATETIME,
-    FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID)
+    TransactionStatus BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID),
+    FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID)
 );
 
 -- Review Table
 CREATE TABLE Reviews (
 	ReviewID INT PRIMARY KEY AUTO_INCREMENT,
     PropertyID INT,
-    ReviewDate DATETIME,
+    ReviewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ReviewText TEXT,
     ReviewLike BOOLEAN,
     FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID)
 );
- /*	
--- Likes table
-CREATE TABLE Likes (
-    LikeID INT PRIMARY KEY AUTO_INCREMENT,
-    PropertyID INT,
-    LikeDate DATETIME,
-    FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID)
-);
-
--- Comments table
-CREATE TABLE Comments (
-    CommentID INT PRIMARY KEY AUTO_INCREMENT,
-    PropertyID INT,
-    CommentText TEXT,
-    CommentDate DATETIME,
-    FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID)
-);*/
