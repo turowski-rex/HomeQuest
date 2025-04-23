@@ -149,7 +149,7 @@ public class Property {
                 '}' ";
     }
 
-    // --- Methods moved to DAO classes ---
+    // --- From what I understand, these methods need to be moved to DAO (Data-Access-Object) classes ---
     /*
     public void updateDetails(String newLocation, double newPrice, double newSize, int newNumRooms, String newType) {
         // This logic now belongs in a DAO/Service class that takes a Property object

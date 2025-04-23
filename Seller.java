@@ -325,7 +325,7 @@ public class Seller {
 
     }
 
-    // --- these methods moved to DAO classes ---
+    // --- these methods move to DAO class ---
     /*
     public void listProperty(Property property) {
         System.out.println("[Refactored] Property listing logic should be in PropertyDAO/Service using SellerID: " + this.sellerID);
