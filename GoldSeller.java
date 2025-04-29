@@ -3,8 +3,8 @@ public class GoldSeller extends Seller {
 
     private String subscriptionType;
 
-    public GoldSeller(String userID, String password, String email, String subscriptionType) {
-        super(userID, password, email);
+    public GoldSeller(String fullName, String email, String password, String subscriptionType) {
+        super(fullName, email, password, null, null, null, null);
         this.subscriptionType = subscriptionType;
     }
 
