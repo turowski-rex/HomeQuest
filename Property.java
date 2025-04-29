@@ -136,8 +136,8 @@ public class Property {
         return "Property{" +
                 "propertyID=" + propertyID +
                 ", sellerID=" + sellerID +
-                ", propertyName='" + propertyName + ''' +
-                ", location='" + location + ''' +
+                ", propertyName='" + propertyName + '\'' +
+                ", location='" + location + '\'' +
                 ", price=" + price +
                 ", size=" + size +
                 ", numberOfRooms=" + numberOfRooms +
@@ -145,8 +145,8 @@ public class Property {
                 ", isForRent=" + isForRent +
                 ", rentDuration=" + rentDuration +
                 ", verificationStatus=" + verificationStatus +
-                // ", imagePaths=" + (imagePaths != null ? imagePaths.size() + " images" : "none") +
-                '}' ";
+                ", imagePaths=" + (imagePaths != null ? imagePaths.size() + " images" : "none") +
+                '}' ;
     }
 
     // --- From what I understand, these methods need to be moved to DAO (Data-Access-Object) classes ---

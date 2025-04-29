@@ -15,17 +15,17 @@ public class Buyer {
         return searchHistory;
     }
 
-    public Property viewDetails(String propertyID) {
+    public Property viewDetails(int propertyID) {
         for (Property property : searchHistory) {
-            if (property.getPropertyID().equals(propertyID)) {
+            if (property.getPropertyID() == propertyID) {
                 return property;
             }
         }
         return null;
     }
-    public void likeProperty(String propertyID) {
+    public void likeProperty(int propertyID) {
         for (Property property : searchHistory) {
-            if (property.getPropertyID().equals(propertyID)) {
+            if (property.getPropertyID() == propertyID) {
                 if (linkedProperties.contains(property)) {
                     System.out.println("Property with ID " + propertyID + " is already liked.");
                     return;

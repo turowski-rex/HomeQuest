@@ -30,7 +30,7 @@ public class Database {
             Property updatedProperty = (Property) data;
             for (int i = 0; i < listOfProperties.size(); i++) {
                 Property existingProperty = listOfProperties.get(i);
-                if (existingProperty.getPropertyID().equals(updatedProperty.getPropertyID())) {
+                if (existingProperty.getPropertyID() == updatedProperty.getPropertyID()) {
                     listOfProperties.set(i, updatedProperty);
                     return true;
                 }
@@ -39,7 +39,7 @@ public class Database {
             Seller updatedSeller = (Seller) data;
             for (int i = 0; i < listOfSellers.size(); i++) {
                 Seller existingSeller = listOfSellers.get(i);
-                if (existingSeller.getUserID().equals(updatedSeller.getUserID())) {
+                if (existingSeller.getSellerID() == updatedSeller.getSellerID()) {
                     listOfSellers.set(i, updatedSeller);
                     return true;
                 }
@@ -53,7 +53,7 @@ public class Database {
             Property propertyToDelete = (Property) data;
             for (int i = 0; i < listOfProperties.size(); i++) {
                 Property existingProperty = listOfProperties.get(i);
-                if (existingProperty.getPropertyID().equals(propertyToDelete.getPropertyID())) {
+                if (existingProperty.getPropertyID() == propertyToDelete.getPropertyID()) {
                     listOfProperties.remove(i);
                     return true;
                 }
@@ -62,7 +62,7 @@ public class Database {
             Seller sellerToDelete = (Seller) data;
             for (int i = 0; i < listOfSellers.size(); i++) {
                 Seller existingSeller = listOfSellers.get(i);
-                if (existingSeller.getUserID().equals(sellerToDelete.getUserID())) {
+                if (existingSeller.getSellerID() == sellerToDelete.getSellerID()) {
                     listOfSellers.remove(i);
                     return true;
                 }
@@ -81,10 +81,10 @@ public class Database {
     }
 
     public boolean retrieveData(Object criteria) {
-        if (criteria instanceof String) { 
-            String propertyID = (String) criteria;
+        if (criteria instanceof Integer) { 
+            int propertyID = (Integer) criteria;
             for (Property property : listOfProperties) {
-                if (property.getPropertyID().equals(propertyID)) {
+                if (property.getPropertyID() == propertyID) {
                     System.out.println("Property found: " + property.toString());
                     return true;
                 }
@@ -92,7 +92,7 @@ public class Database {
         } else if (criteria instanceof Property) { 
             Property criteriaProperty = (Property) criteria;
             for (Property property : listOfProperties) {
-                if (property.getPropertyID().equals(criteriaProperty.getPropertyID())) {
+                if (property.getPropertyID() == criteriaProperty.getPropertyID()) {
                     System.out.println("Property found: " + property.toString());
                     return true;
                 }
@@ -102,9 +102,9 @@ public class Database {
     }
 
    
-    public boolean verifyProperty(String propertyID) {
+    public boolean verifyProperty(int propertyID) {
         for (Property property : listOfProperties) {
-            if (property.getPropertyID().equals(propertyID)) {
+            if (property.getPropertyID() == propertyID) {
                 return true;
             }
         }

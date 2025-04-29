@@ -313,15 +313,15 @@ public class Seller {
     public String toString() {
         return "Seller{" +
                 "sellerID=" + sellerID +
-                ", fullName='" + fullName + ''' +
-                ", email='" + email + ''' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", consentLocation=" + consentLocation +
-                ", profilePhoto='" + (profilePhoto != null ? "[set]" : "[unset]") + ''' +
-                ", phoneNumber='" + (phoneNumber != null ? phoneNumber : "[unset]") + ''' +
-                ", userType='" + userType + ''' +
+                ", profilePhoto='" + (profilePhoto != null ? "[set]" : "[unset]") + '\'' +
+                ", phoneNumber='" + (phoneNumber != null ? phoneNumber : "[unset]") + '\'' +
+                ", userType='" + userType + '\'' +
                 ", loggedIn=" + loggedIn +
-                '}' ";
+                '}' ;
 
     }
 

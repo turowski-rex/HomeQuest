@@ -49,7 +49,7 @@ public class Moderator {
     public boolean sellerAuthentication(Object sellerInfo) {
         if (sellerInfo instanceof Seller) {
             Seller seller = (Seller) sellerInfo;
-            System.out.println("Seller " + seller.getUserID() + " authenticated successfully.");
+            System.out.println("Seller " + seller.getSellerID() + " authenticated successfully.");
             return true;
         }
         System.out.println("Seller authentication failed.");
@@ -60,7 +60,7 @@ public class Moderator {
         if (sellerInfo instanceof Seller) {
             Seller seller = (Seller) sellerInfo;
             if (seller.getEmail() != null && seller.getEmail().contains("@")) {
-                System.out.println("Seller " + seller.getUserID() + " verified successfully.");
+                System.out.println("Seller " + seller.getSellerID() + " verified successfully.");
                 return true;
             }
         }
