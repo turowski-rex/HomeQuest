@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dubai Listings - HOMEQUEST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #8B0000;
+    }
+    .logo-section img {
+      height: 32px;
+      width: auto;
+    }
+    .search-bar {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .search-bar input {
+      padding: 8px 12px;
+      width: 260px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .icons img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: orange;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .card-content {
+      padding: 16px;
+      font-size: 14px;
+      color: #333;
+    }
+    .card-content h3 {
+      margin: 8px 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .view-button {
+      margin-top: 8px;
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .view-button:hover {
+      background: #8B0000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-section">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="#8B0000"><path d="M8 28 L32 8 L56 28 V56 H8 Z"/></svg>
+      HOMEQUEST
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search properties..." />
+    </div>
+    <div class="icons">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-3-3.9M4 21v-2a4 4 0 0 1 3-3.9"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    </div>
+  </header>
+
+  <div class="listings">
+    <div class="card">
+      <img src="/mnt/data/Stunning 5* 4BR-Oceanfront-Apartment.avif" alt="Stunning 5* 4BR-Oceanfront-Apartment" />
+      <div class="card-content">
+        <div><strong>9.6</strong> / 10.0</div>
+        <h3>Stunning 5* 4BR-Oceanfront-Apartment</h3>
+        <p>Apartment in Dubai</p>
+        <p>7 guests • 4 bedrooms • 5 baths</p>
+        <p>3 Single • 2 King</p>
+        <div class="price-level">$$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/mnt/data/The Apartments, Dubai World Trade Center.jpg" alt="The Apartments, Dubai World Trade Center" />
+      <div class="card-content">
+        <div><strong>8.1</strong> / 10.0</div>
+        <h3>The Apartments, Dubai World Trade Center</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 King</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/mnt/data/Ascott Park Place Dubai.jpg" alt="Ascott Park Place Dubai" />
+      <div class="card-content">
+        <div><strong>8.4</strong> / 10.0</div>
+        <h3>Ascott Park Place Dubai</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 Queen</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/mnt/data/Dream Inn Apartments - Burj Residence.jpg" alt="Dream Inn Apartments - Burj Residence" />
+      <div class="card-content">
+        <div><strong>7.6</strong> / 10.0</div>
+        <h3>Dream Inn Apartments - Burj Residence</h3>
+        <p>Apartment in Dubai</p>
+        <p>4 guests • 2 bedrooms • 2 baths</p>
+        <p>Pool • Kitchen • Air conditioner</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/mnt/data/Luxury Marina View Studio.jpg" alt="Luxury Marina View Studio" />
+      <div class="card-content">
+        <div><strong>9.1</strong> / 10.0</div>
+        <h3>Luxury Marina View Studio</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 King</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <!-- Existing cards here... -->
+    <!-- Restored missing cards -->
+    <div class="card">
+      <img src="/apt6.jpg" alt="Apartment 6" />
+      <div class="card-content">
+        <div><strong>8.7</strong> / 10.0</div>
+        <h3>Palm Jumeirah Family Getaway</h3>
+        <p>Apartment in Dubai</p>
+        <p>6 guests • 3 bedrooms • 3 baths</p>
+        <p>2 Queen • 1 King</p>
+        <div class="price-level">$$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt7.jpg" alt="Apartment 7" />
+      <div class="card-content">
+        <div><strong>8.3</strong> / 10.0</div>
+        <h3>Skyline High-Rise Loft</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 King</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt8.jpg" alt="Apartment 8" />
+      <div class="card-content">
+        <div><strong>8.9</strong> / 10.0</div>
+        <h3>Downtown Chic Retreat</h3>
+        <p>Apartment in Dubai</p>
+        <p>4 guests • 2 bedrooms • 2 baths</p>
+        <p>2 Queen</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt9.jpg" alt="Apartment 9" />
+      <div class="card-content">
+        <div><strong>9.0</strong> / 10.0</div>
+        <h3>Elite 1BR with Burj Khalifa View</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 King</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt10.jpg" alt="Apartment 10" />
+      <div class="card-content">
+        <div><strong>8.2</strong> / 10.0</div>
+        <h3>JBR Beach Apartment - Cozy & Stylish</h3>
+        <p>Apartment in Dubai</p>
+        <p>3 guests • 1 bedroom • 1 bath</p>
+        <p>1 Queen • Sofa bed</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt11.jpg" alt="Apartment 11" />
+      <div class="card-content">
+        <div><strong>8.8</strong> / 10.0</div>
+        <h3>Business Bay Luxury Flat</h3>
+        <p>Apartment in Dubai</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>1 King</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/apt12.jpg" alt="Apartment 12" />
+      <div class="card-content">
+        <div><strong>8.5</strong> / 10.0</div>
+        <h3>Modern 2BR with Canal Views</h3>
+        <p>Apartment in Dubai</p>
+        <p>5 guests • 2 bedrooms • 2 baths</p>
+        <p>1 King • 2 Twin</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
