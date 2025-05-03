@@ -1,0 +1,36 @@
+.property-details {
+    max-width: 600px;
+    text-align: left;
+  }
+  
+  .property-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .property-info {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .comments-section {
+    margin-top: 30px;
+  }
+  
+  .comments-section textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    resize: vertical;
+  }
+  
+  .comments-section button {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
