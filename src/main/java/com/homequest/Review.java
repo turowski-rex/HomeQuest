@@ -1,3 +1,5 @@
+package com.homequest;
+
 public class Review {
     private boolean like;
     private boolean dislike;

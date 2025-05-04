@@ -1,3 +1,5 @@
+package com.homequest;
+
 import java.math.BigDecimal; // For price representation
 import java.util.List; // For potentially holding image paths later
 
