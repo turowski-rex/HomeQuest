@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Epilogue', sans-serif;
+    }
+    .font-inter {
+      font-family: 'Inter', sans-serif;
+    }
+    .add-button {
+      transition: all 0.3s ease;
+    }
+    .add-button:hover {
+      background-color: #ffffff;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+    }
+    .logout-button {
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+    .logout-button:hover {
+      background-color: #ffffff;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+    }
+    .subscription-button {
+      color: #000000;
+      transition: all 0.3s ease;
+    }
+    .subscription-button:hover {
+      color: #bfa200;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#f8f8f8] p-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="rounded-2xl shadow-md mb-6 relative bg-white p-6 flex gap-6 items-center">
+      <div class="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-4xl">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A10.978 10.978 0 0112 15c2.5 0 4.847.855 6.879 2.29M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-semibold font-inter text-[#8B0000]">Jon Doe</h1>
+        <p class="text-sm text-gray-600">doe@example.com</p>
+        <p class="text-sm text-gray-600">Location: Leipzig, Germany</p>
+        <button class="subscription-button text-sm font-semibold bg-transparent cursor-pointer">Subscription Status: Gold</button>
+      </div>
+      <button class="add-button bg-[#8B0000] text-white text-3xl rounded-full w-14 h-14 flex items-center justify-center">
+        +
+      </button>
+    </div>
+
+    <h2 class="text-xl font-bold text-[#8B0000] mb-4 font-inter">Listed Properties</h2>
+    <p class="text-gray-600 mb-8">You haven't listed any properties yet.</p>
+    <div class="max-w-4xl mx-auto text-center mt-8">
+      <button class="logout-button text-sm bg-[#8B0000] text-white px-4 py-2 rounded">Logout</button>
+    </div>
+  </div>
+</body>
+</html>
