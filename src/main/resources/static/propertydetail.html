@@ -30,8 +30,8 @@
     }
 
     .home-icon svg {
-      width: 32px;
-      height: 32px;
+      width: 64px;
+      height: 64px;
       fill: #8B0000;
     }
 
@@ -55,8 +55,15 @@
       right: 10px;
       width: 24px;
       height: 24px;
-      fill: #8B0000;
+      fill: white;
+      stroke: #8B0000;
+      stroke-width: 2;
       z-index: 1;
+      transition: fill 0.3s;
+    }
+
+    .heart-icon:hover {
+      fill: #8B0000;
     }
 
     .carousel-images {
@@ -94,35 +101,31 @@
       text-align: left;
     }
 
-    .comments-section {
-      margin-top: 30px;
+    .property-description {
       text-align: left;
+      margin-bottom: 30px;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
-    .comments-section textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      resize: vertical;
+    .contact-section {
+      margin-top: 30px;
+      text-align: center;
     }
 
-    .comments-section button {
-      margin: 10px auto 0;
-      display: block;
-      width: 50%;
+    .contact-section button {
       background-color: #8B0000;
       color: white;
-      padding: 10px;
+      padding: 12px 20px;
       border: none;
       border-radius: 8px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
     }
 
-    .comments-section button:hover {
+    .contact-section button:hover {
       background-color: #a10000;
     }
   </style>
@@ -157,31 +160,34 @@
         <strong>Price:</strong> $200,000<br>
         <strong>Location:</strong> Downtown, Cityville<br>
       </div>
-      <div class="comments-section">
-        <h2>Comments</h2>
-        <textarea placeholder="Add your comment here..."></textarea>
-        <button type="button">Post Comment</button>
+      <div class="property-description">
+        This modern 3-bedroom apartment located in the heart of Downtown Cityville offers spacious living, contemporary finishes, and proximity to shops, cafes, and transport. Ideal for families or professionals looking for comfort and convenience in an urban setting.
+      </div>
+      <div class="contact-section">
+        <button type="button">Contact Property Owner</button>
       </div>
     </div>
   </div>
   <script>
-    let currentIndex = 0;
-    const images = document.getElementById('carousel-images');
-    const numSlides = images.children.length;
+    (function() {
+      let currentIndex = 0;
+      const images = document.getElementById('carousel-images');
+      const numSlides = images.children.length;
 
-    function showSlide(index) {
-      images.style.transform = `translateX(-${index * 100}%)`;
-    }
+      window.showSlide = function(index) {
+        images.style.transform = `translateX(-${index * 100}%)`;
+      }
 
-    function prevSlide() {
-      currentIndex = (currentIndex === 0) ? numSlides - 1 : currentIndex - 1;
-      showSlide(currentIndex);
-    }
+      window.prevSlide = function() {
+        currentIndex = (currentIndex === 0) ? numSlides - 1 : currentIndex - 1;
+        showSlide(currentIndex);
+      }
 
-    function nextSlide() {
-      currentIndex = (currentIndex === numSlides - 1) ? 0 : currentIndex + 1;
-      showSlide(currentIndex);
-    }
+      window.nextSlide = function() {
+        currentIndex = (currentIndex === numSlides - 1) ? 0 : currentIndex + 1;
+        showSlide(currentIndex);
+      }
+    })();
   </script>
 </body>
 </html>

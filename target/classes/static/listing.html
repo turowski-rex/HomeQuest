@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Listing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700&family=Inter&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      width: 100%;
+      max-width: 768px;
+    }
+    .logo {
+      height: 64px;
+      margin-bottom: 1.5rem;
+    }
+    .box {
+      background: white;
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #8B0000;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      width: 100%;
+      max-width: 600px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .upload-section {
+      margin-bottom: 1rem;
+    }
+    .upload-label {
+      display: block;
+      font-size: 0.875rem;
+      color: #444;
+      margin-bottom: 0.5rem;
+    }
+    .upload-box {
+      width: 96px;
+      height: 96px;
+      border: 2px dashed #8B0000;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+    }
+    .upload-box input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .upload-text {
+      color: #8B0000;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .button {
+      background-color: #8B0000;
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: white;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="homequest-logo.svg" alt="HomeQuest Logo" class="logo" />
+    <div class="box">
+      <h2>List a New Property</h2>
+      <form onsubmit="return validateUpload()">
+        <input type="text" name="title" placeholder="Title" />
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="text" name="price" placeholder="$$$" />
+                <input type="text" name="country" placeholder="Country" />
+        <input type="text" name="city" placeholder="City" />
+        <input type="text" name="size" placeholder="Property Size (m²)" />
+        <input type="text" name="rooms" placeholder="Number of Rooms" />
+        <input type="text" name="bathrooms" placeholder="Number of Bathrooms" />
+
+        <div class="upload-section">
+          <label class="upload-label"><strong>Property Images</strong></label>
+          <div class="upload-box">
+            <input type="file" name="images" id="images" multiple />
+            <span class="upload-text">Upload</span>
+          </div>
+        </div>
+
+        <div class="upload-section">
+          <label class="upload-label"><strong>Property Verification Documents</strong></label>
+          <div class="upload-box">
+            <input type="file" name="verification" id="verification" multiple />
+            <span class="upload-text">Upload</span>
+          </div>
+        </div>
+
+        <button type="submit" class="button">List</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function validateUpload() {
+      const images = document.getElementById('images').files;
+      const verification = document.getElementById('verification').files;
+      if (images.length === 0) {
+        alert('Please upload at least one image.');
+        return false;
+      }
+      if (verification.length === 0) {
+        alert('Please upload at least one property verification document.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
