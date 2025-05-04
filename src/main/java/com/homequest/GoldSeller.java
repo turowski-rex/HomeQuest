@@ -1,3 +1,5 @@
+package com.homequest;
+
 public class GoldSeller extends Seller {
 
 

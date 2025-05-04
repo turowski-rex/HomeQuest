@@ -1,3 +1,5 @@
+package com.homequest;
+
 import java.math.BigDecimal;
 
 public class PropertyDAO {
