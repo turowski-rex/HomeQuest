@@ -57,7 +57,7 @@
     }
     .listings {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       padding: 24px;
     }
@@ -67,6 +67,9 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       position: relative;
+      width: 100%;
+      max-width: 360px;
+      min-height: 380px;
     }
     .card img {
       width: 100%;
@@ -126,160 +129,99 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-3-3.9M4 21v-2a4 4 0 0 1 3-3.9"></path><circle cx="12" cy="7" r="4"></circle></svg>
     </div>
   </header>
-
   <div class="listings">
     <div class="card">
-      <img src="/mnt/data/Stunning 5* 4BR-Oceanfront-Apartment.avif" alt="Stunning 5* 4BR-Oceanfront-Apartment" />
-      <div class="card-content">
-        <div><strong>9.6</strong> / 10.0</div>
-        <h3>Stunning 5* 4BR-Oceanfront-Apartment</h3>
-        <p>Apartment in Dubai</p>
-        <p>7 guests • 4 bedrooms • 5 baths</p>
-        <p>3 Single • 2 King</p>
-        <div class="price-level">$$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/mnt/data/The Apartments, Dubai World Trade Center.jpg" alt="The Apartments, Dubai World Trade Center" />
-      <div class="card-content">
-        <div><strong>8.1</strong> / 10.0</div>
-        <h3>The Apartments, Dubai World Trade Center</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 King</p>
-        <div class="price-level">$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/mnt/data/Ascott Park Place Dubai.jpg" alt="Ascott Park Place Dubai" />
-      <div class="card-content">
-        <div><strong>8.4</strong> / 10.0</div>
-        <h3>Ascott Park Place Dubai</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 Queen</p>
-        <div class="price-level">$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/mnt/data/Dream Inn Apartments - Burj Residence.jpg" alt="Dream Inn Apartments - Burj Residence" />
-      <div class="card-content">
-        <div><strong>7.6</strong> / 10.0</div>
-        <h3>Dream Inn Apartments - Burj Residence</h3>
-        <p>Apartment in Dubai</p>
-        <p>4 guests • 2 bedrooms • 2 baths</p>
-        <p>Pool • Kitchen • Air conditioner</p>
-        <div class="price-level">$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/mnt/data/Luxury Marina View Studio.jpg" alt="Luxury Marina View Studio" />
-      <div class="card-content">
-        <div><strong>9.1</strong> / 10.0</div>
-        <h3>Luxury Marina View Studio</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 King</p>
-        <div class="price-level">$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-    <!-- Existing cards here... -->
-    <!-- Restored missing cards -->
-    <div class="card">
-      <img src="/apt6.jpg" alt="Apartment 6" />
-      <div class="card-content">
-        <div><strong>8.7</strong> / 10.0</div>
-        <h3>Palm Jumeirah Family Getaway</h3>
-        <p>Apartment in Dubai</p>
-        <p>6 guests • 3 bedrooms • 3 baths</p>
-        <p>2 Queen • 1 King</p>
-        <div class="price-level">$$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/apt7.jpg" alt="Apartment 7" />
-      <div class="card-content">
-        <div><strong>8.3</strong> / 10.0</div>
-        <h3>Skyline High-Rise Loft</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 King</p>
-        <div class="price-level">$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/apt8.jpg" alt="Apartment 8" />
-      <div class="card-content">
-        <div><strong>8.9</strong> / 10.0</div>
-        <h3>Downtown Chic Retreat</h3>
-        <p>Apartment in Dubai</p>
-        <p>4 guests • 2 bedrooms • 2 baths</p>
-        <p>2 Queen</p>
-        <div class="price-level">$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/apt9.jpg" alt="Apartment 9" />
-      <div class="card-content">
-        <div><strong>9.0</strong> / 10.0</div>
-        <h3>Elite 1BR with Burj Khalifa View</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 King</p>
-        <div class="price-level">$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/apt10.jpg" alt="Apartment 10" />
-      <div class="card-content">
-        <div><strong>8.2</strong> / 10.0</div>
-        <h3>JBR Beach Apartment - Cozy & Stylish</h3>
-        <p>Apartment in Dubai</p>
-        <p>3 guests • 1 bedroom • 1 bath</p>
-        <p>1 Queen • Sofa bed</p>
-        <div class="price-level">$$</div>
-        <div class="view-button">View Property</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="/apt11.jpg" alt="Apartment 11" />
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-51838373/original/91d93cbc-06c1-4394-83ef-8cfcb13aacc8.jpeg?im_w=1200" alt="Oceanfront Apartment" />
       <div class="card-content">
         <div><strong>8.8</strong> / 10.0</div>
-        <h3>Business Bay Luxury Flat</h3>
-        <p>Apartment in Dubai</p>
-        <p>2 guests • 1 bedroom • 1 bath</p>
-        <p>1 King</p>
+        <h3>Oceanfront Apartment</h3>
+        <p>Apartment in Dubai, UAE</p>
+        <p>7 guests • 4 bedrooms • 5 baths</p>
+        <p>3 Single • 2 King</p>
+        <div class="price-level">$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1353i215%2Fhgzk53f6gjsdmaahqpk9xbpmb5i215&option=N&h=472&permitphotoenlargement=false" alt="Tuscan Villa with Vineyard" />
+      <div class="card-content">
+        <div><strong>9.2</strong> / 10.0</div>
+        <h3>Tuscan Villa with Vineyard</h3>
+        <p>Villa in Tuscany, Italy</p>
+        <p>8 guests • 4 bedrooms • 4 baths</p>
+        <p>Private Pool • Garden • Fireplace</p>
         <div class="price-level">$</div>
         <div class="view-button">View Property</div>
       </div>
     </div>
-
     <div class="card">
-      <img src="/apt12.jpg" alt="Apartment 12" />
+      <img src="https://thumbs.cityrealty.com/assets/smart/1004x/webp/7/70/70c22d5bc7d21359ae1f1717bf97a6033afee866/30-park-place-1.jpg" alt="Penthouse Apartment" />
       <div class="card-content">
-        <div><strong>8.5</strong> / 10.0</div>
-        <h3>Modern 2BR with Canal Views</h3>
-        <p>Apartment in Dubai</p>
-        <p>5 guests • 2 bedrooms • 2 baths</p>
-        <p>1 King • 2 Twin</p>
+        <div><strong>9.3</strong> / 10.0</div>
+        <h3>Penthouse Apartment</h3>
+        <p>Apartment in New York City, USA</p>
+        <p>4 guests • 2 bedrooms • 2 baths</p>
+        <p>Skyline View • Concierge • Gym</p>
+        <div class="price-level">$$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.contentstack.io/v3/assets/blt00454ccee8f8fe6b/blt01d6d1d3f09fa0c3/6139e2f0422c0828c05248a3/UK_Greece_GR_Header.jpg" alt="Seaside Villa in Mykonos" />
+      <div class="card-content">
+        <div><strong>9.0</strong> / 10.0</div>
+        <h3>Seaside Villa in Mykonos</h3>
+        <p>Villa in Mykonos, Greece</p>
+        <p>6 guests • 3 bedrooms • 3 baths</p>
+        <p>Infinity Pool • Sea View • Terrace</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://motosoulresort.com/wp-content/uploads/2017/02/Neuschwanstein.jpg" alt="Castle Residence" />
+      <div class="card-content">
+        <div><strong>8.4</strong> / 10.0</div>
+        <h3>Castle Residence</h3>
+        <p>Residence in Cologne, Germany</p>
+        <p>12 guests • 6 bedrooms • 6 baths</p>
+        <p>Historic Setting • Balcony • Modern Interior</p>
+        <div class="price-level">$$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.hayesparsons.co.uk/app/uploads/2024/11/rachel-penney-Xm0EocnRbjg-unsplash-1-1024x426.jpg" alt="British Mansion" />
+      <div class="card-content">
+        <div><strong>9.3</strong> / 10.0</div>
+        <h3>British Mansion</h3>
+        <p>Estate in Harewood, United Kingdom</p>
+        <p>10 guests • 5 bedrooms • 5 baths</p>
+        <p>Private Garden • Historic Architecture • Modern Amenities</p>
+        <div class="price-level">$$$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://r-cf.bstatic.com/xdata/images/hotel/max1024x768/233724588.jpg?k=31cfc13693d0845894014af141ab55ab782b648429fd733c50a6feed3ef1fb72&o=" alt="Maldives Overwater Villa" />
+      <div class="card-content">
+        <div><strong>9.5</strong> / 10.0</div>
+        <h3>Overwater Villa</h3>
+        <p>Villa in Maldives</p>
+        <p>2 guests • 1 bedroom • 1 bath</p>
+        <p>Lagoon Access • Infinity Pool • All-Inclusive</p>
+        <div class="price-level">$</div>
+        <div class="view-button">View Property</div>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://blog.newhomesource.com/wp-content/uploads/2020/01/traditional-japanese-house-1.jpg.webp" alt="Traditional Japanese Home" />
+      <div class="card-content">
+        <div><strong>9.0</strong> / 10.0</div>
+        <h3>Traditional Japanese Home</h3>
+        <p>House in Kyoto, Japan</p>
+        <p>4 guests • 2 bedrooms • 1 bath</p>
+        <p>Zen Garden • Tatami Rooms • Wooden Interiors</p>
         <div class="price-level">$$</div>
         <div class="view-button">View Property</div>
       </div>
