@@ -178,7 +178,7 @@ public class PropertyDAO {
     }
 
     //update an existing property in database
-    public boolean updateProperty(Property property) {
+    public boolean updateProperty(int propertyID, Property property) {
         String sql = "UPDATE Properties SET sellerID = ?, propertyName = ?, location = ?, price = ?, size = ?, numberOfRooms = ?, propertyType = ?, isForRent = ?, rentDuration = ?, verificationStatus = ? WHERE propertyID = ?";
 
         try (Connection conn = DatabaseConnector.getConnection();
@@ -211,7 +211,7 @@ public class PropertyDAO {
             }
 
             pstmt.setBoolean(10, property.getVerificationStatus());
-            pstmt.setInt(11, property.getPropertyID());
+            pstmt.setInt(11, propertyID); //use propertyID from method parameter
 
             int affectedRows = pstmt.executeUpdate();
 

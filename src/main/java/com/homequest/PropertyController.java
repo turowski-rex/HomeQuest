@@ -46,9 +46,8 @@ public class PropertyController {
 
     @PutMapping("/{propertyID}")
     public ResponseEntity<Void> updateProperty(@PathVariable int propertyID, @RequestBody Property property) {
-        //ID in the path must match the ID in the request
-        property.setPropertyID(propertyID);
-        boolean success = propertyDAO.updateProperty(property);
+        //call updateProperty method in PropertyDAO with both propertyID and property
+        boolean success = propertyDAO.updateProperty(propertyID, property);
         if (success) {
             return ResponseEntity.ok().build();
         } else {
