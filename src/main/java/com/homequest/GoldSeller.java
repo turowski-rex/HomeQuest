@@ -1,9 +1,4 @@
 package com.homequest;
-<<<<<<< Updated upstream
-
-public class GoldSeller extends Seller {
-=======
->>>>>>> Stashed changes
 
 public class GoldSeller extends Seller {
 
