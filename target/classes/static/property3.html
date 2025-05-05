@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details - HOMEQUEST</title>
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="property-detail.css">
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Inter', 'Epilogue', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .property-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: 40px auto;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .home-icon {
+      margin-bottom: 10px;
+    }
+
+    .home-icon svg {
+      width: 64px;
+      height: 64px;
+      fill: #8B0000;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    .property-details {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .heart-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      fill: white;
+      stroke: white;
+      stroke-width: 2;
+      z-index: 1;
+      transition: fill 0.3s, stroke 0.3s;
+    }
+
+    .heart-icon:hover {
+      fill: #8B0000;
+      stroke: #8B0000;
+    }
+
+    .carousel-image {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+    }
+
+    .thumbnails {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .thumbnails img {
+      width: 60px;
+      height: 45px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .thumbnails img.active,
+    .thumbnails img:hover {
+      opacity: 1;
+    }
+
+    .property-info {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .property-description {
+      text-align: left;
+      margin-bottom: 30px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .property-description p {
+      text-indent: 2em;
+      margin-bottom: 1em;
+    }
+
+    .contact-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .contact-section button {
+      background-color: #8B0000;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact-section button:hover {
+      background-color: #a10000;
+    }
+  </style>
+</head>
+<body>
+  <div class="property-box">
+    <div class="home-icon">
+      <svg id="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 28 L32 8 L56 28 V56 H8 Z" />
+      </svg>
+    </div>
+    <h2>Penthouse Apartment</h2>
+    <div class="property-details">
+      <div class="carousel">
+        <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+        </svg>
+        <img id="main-image" class="carousel-image" src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg" alt="Tuscan Villa with Vineyard">
+        <div class="thumbnails">
+          <img src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg" alt="Thumb 1" onclick="setMainImage(this)" class="active">
+          <img src="https://thumbs.cityrealty.com/assets/smart/1004x/webp/7/70/70c22d5bc7d21359ae1f1717bf97a6033afee866/30-park-place-1.jpg" alt="Thumb 2" onclick="setMainImage(this)">
+          <img src="https://thumbs.6sqft.com/wp-content/uploads/2018/10/26121020/BK-Point-Penthouse-D-1.jpg?w=1560&format=webp" alt="Thumb 3" onclick="setMainImage(this)">
+          <img src="https://thumbs.6sqft.com/wp-content/uploads/2024/12/16114915/Olympia-Dumbo-PH-B-11.jpg?w=1560&format=webp" alt="Thumb 4" onclick="setMainImage(this)">
+          <img src="https://media.architecturaldigest.com/photos/5698273ea7d16cbd6b658f6a/master/pass/160-Leroy-1.jpg" alt="Thumb 5" onclick="setMainImage(this)">
+        </div>
+      <div class="property-info">
+        <strong>Rating:</strong> 9.3 / 10.0<br>
+        <strong>Guests:</strong> 4<br>
+        <strong>Bedrooms:</strong> 2<br>
+        <strong>Bathrooms:</strong> 2<br>
+        <strong>Features:</strong> Skyline View • Concierge • Gym<br>
+        <strong>Price Level:</strong> $$$<br>
+        <strong>Location:</strong> New York City, USA<br>
+        <strong>Type:</strong> Apartment<br>
+      </div>
+      <div class="property-description">
+        <p>This premium penthouse apartment in New York City offers breathtaking skyline views, modern luxury finishes, and access to concierge services and a private gym. Ideal for upscale travelers seeking exclusivity and comfort in the heart of Manhattan.</p>
+      </div>
+      <div class="contact-section">
+        <button type="button">Contact Property Owner</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function setMainImage(thumb) {
+      const mainImage = document.getElementById('main-image');
+      mainImage.src = thumb.src;
+      document.querySelectorAll('.thumbnails img').forEach(img => img.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+  </script>
+</body>
+</html>

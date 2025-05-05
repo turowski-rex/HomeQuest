@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Property Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      margin: auto;
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 16px;
+      font-size: 14px;
+      color: black;
+    }
+    .card-content h3 {
+      margin: 8px 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .view-button {
+      margin-top: 8px;
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .view-button:hover {
+      background: #8B0000;
+      color: white;
+    }
+    .card .heart-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1;
+    }
+    .card .heart-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #FFFFFF;
+      fill: none;
+      transition: stroke 0.3s, fill 0.3s;
+    }
+    .card .heart-icon:hover svg {
+      stroke: #FFFFFF;
+      fill: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="heart-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+      </svg>
+    </div>
+    <img src="https://a0.muscache.com/im/pictures/miso/Hosting-51838373/original/91d93cbc-06c1-4394-83ef-8cfcb13aacc8.jpeg?im_w=1200" alt="Oceanfront Apartment" />
+    <div class="card-content">
+      <div><strong>8.8</strong> / 10.0</div>
+      <h3>Oceanfront Apartment</h3>
+      <p>Apartment in Dubai, UAE</p>
+      <p>7 guests • 4 bedrooms • 5 baths</p>
+      <p>3 Single • 2 King</p>
+      <div class="price-level">$$</div>
+      <div class="view-button">View Property</div>
+    </div>
+  </div>
+</body>
+</html>
