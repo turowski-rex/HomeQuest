@@ -51,17 +51,39 @@
         <h1 class="text-2xl font-semibold font-inter text-[#8B0000]">Jon Doe</h1>
         <p class="text-sm text-gray-600">doe@example.com</p>
         <p class="text-sm text-gray-600">Location: Leipzig, Germany</p>
-        <button class="subscription-button text-sm font-semibold bg-transparent cursor-pointer">Subscription Status: Gold</button>
+        <a href="subscription.html" class="subscription-button text-sm font-semibold bg-transparent cursor-pointer">Subscription Status: Gold</a>
       </div>
-      <button class="add-button bg-[#8B0000] text-white text-3xl rounded-full w-14 h-14 flex items-center justify-center">
+      <a href="listing.html" class="add-button bg-[#8B0000] text-white text-3xl rounded-full w-14 h-14 flex items-center justify-center">
         +
-      </button>
+      </a>
     </div>
 
     <h2 class="text-xl font-bold text-[#8B0000] mb-4 font-inter">Listed Properties</h2>
-    <p class="text-gray-600 mb-8">You haven't listed any properties yet.</p>
+
+    <div class="grid gap-6">
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+        <div class="relative">
+          <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/287895223.jpg?k=9febc613f4efb989593f01406773d2a7d36878f44e0ef6ba7ebde257787b19a3&o=&hp=1" alt="Urban Hideaway Madrid" class="w-full h-60 object-cover" />
+          <button class="absolute top-3 right-3 bg-white p-1.5 rounded-full shadow text-gray-600 hover:text-[#8B0000]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+          </button>
+        </div>
+        <div class="p-5 font-inter">
+          <p class="text-sm text-gray-800 font-semibold mb-1">8.8 / 10.0</p>
+          <h3 class="text-lg font-bold text-[#8B0000] mb-1">Urban Hideaway</h3>
+          <p class="text-sm text-gray-600 mb-1">Apartment in Madrid, Spain</p>
+          <p class="text-sm text-gray-600 mb-1">2 guests • 1 bedroom • 1 bath</p>
+          <p class="text-sm text-gray-600 mb-2">Balcony • Central Location • High-Speed WiFi</p>
+          <p class="text-sm text-gray-800 font-medium mb-3">$$</p>
+          <button class="text-sm border border-[#8B0000] text-[#8B0000] px-4 py-1.5 rounded hover:bg-[#8B0000] hover:text-white transition font-semibold">View Property</button>
+        </div>
+      </div>
+    </div>
+
     <div class="max-w-4xl mx-auto text-center mt-8">
-      <button class="logout-button text-sm bg-[#8B0000] text-white px-4 py-2 rounded">Logout</button>
+      <a href="login.html" class="logout-button text-sm bg-[#8B0000] text-white px-4 py-2 rounded inline-block">Logout</a>
     </div>
   </div>
 </body>
