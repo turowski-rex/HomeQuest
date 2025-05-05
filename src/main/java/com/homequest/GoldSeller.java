@@ -2,7 +2,6 @@ package com.homequest;
 
 public class GoldSeller extends Seller {
 
-
     private String subscriptionType;
 
     public GoldSeller(String fullName, String email, String password, String subscriptionType) {
