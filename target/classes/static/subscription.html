@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Plan - HomeQuest</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      padding: 40px;
+      margin: 0;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .logo img {
+      width: 160px;
+    }
+    .page-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      color: #8B0000;
+    }
+    .plan-container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .plan-box {
+      background-color: white;
+      border: 2px solid #8B0000;
+      border-radius: 32px;
+      padding: 20px 30px;
+      text-align: center;
+      width: 220px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .plan-box:hover {
+      background-color: #8B0000;
+      color: white;
+    }
+    .plan-box h3, .plan-box p {
+      margin: 0 0 10px;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 16px;
+    }
+    .choose-section {
+      text-align: center;
+      margin: 50px 0 30px;
+      font-size: 18px;
+    }
+    .highlight {
+      color: silver;
+      font-weight: bold;
+    }
+    .gold {
+      color: #b8860b;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="homequest-logo.svg" alt="HomeQuest Logo">
+  </div>
+  <div class="page-title">Choose Your Plan</div>
+
+  <div class="choose-section">
+    Stay <span class="highlight">Silver</span> or go <span class="gold">Gold</span>
+  </div>
+
+  <div class="plan-container">
+    <a href="payment.html" class="plan-box">
+      <h3>Pay Weekly</h3>
+      <p>$1.50/week</p>
+    </a>
+    <a href="payment.html" class="plan-box">
+      <h3>Pay Monthly</h3>
+      <p>$5.00/month</p>
+    </a>
+    <a href="payment.html" class="plan-box">
+      <h3>Pay Quarterly</h3>
+      <p>$13.00/quarter</p>
+    </a>
+    <a href="payment.html" class="plan-box">
+      <h3>Pay Yearly</h3>
+      <p>$50.00/year</p>
+    </a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canvas Payment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Epilogue', sans-serif;
+      background-color: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .payment-box {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    .payment-box h2 {
+      color: #8B0000;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #8B0000;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    button:hover {
+      background-color: white;
+      color: #8B0000;
+      border: 1px solid #8B0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+    <h2>Credit Card Payment</h2>
+    <form>
+      <label for="name">Cardholder Name</label>
+      <input type="text" id="name" placeholder="John Doe" required />
+
+      <label for="card">Card Number</label>
+      <input type="text" id="card" placeholder="1234 5678 9012 3456" required />
+
+      <label for="expiry">Expiry Date</label>
+      <input type="text" id="expiry" placeholder="MM/YY" required />
+
+      <label for="cvv">CVV</label>
+      <input type="password" id="cvv" placeholder="123" required />
+
+      <button type="submit">Pay Now</button>
+    </form>
+  </div>
+</body>
+</html>
