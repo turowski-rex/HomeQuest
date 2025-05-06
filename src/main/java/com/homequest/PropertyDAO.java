@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 public class PropertyDAO {
 
     public void updateDetails(Property property, String newLocation, BigDecimal newPrice, Integer newSize, Integer newNumberOfRooms, PropertyType newType) {
+        // This method needs to be updated to interact with the database as well
         System.out.println("Update details method in PropertyDAO needs database implementation.");
+        // Placeholder logic (does not persist to DB)
         property.setLocation(newLocation);
         property.setPrice(newPrice);
         property.setSize(newSize);
@@ -23,7 +25,7 @@ public class PropertyDAO {
         System.out.println("Updated Details for:" + property.getPropertyID());
     }
 
-    //get properties from database with filters
+    // Method to get properties from the database with filtering options
     public List<Property> getFilteredProperties(
             String location,
             BigDecimal minPrice,
@@ -39,54 +41,57 @@ public class PropertyDAO {
             Boolean verificationStatus) {
 
         List<Property> properties = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT propertyID, sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus FROM Properties WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT p.propertyID, p.sellerID, p.propertyName, p.location, p.price, p.size, p.numberOfRooms, p.propertyType, p.isForRent, p.rentDuration, p.verificationStatus, pi.imagePath FROM Properties p LEFT JOIN PropertyImages pi ON p.propertyID = pi.propertyID WHERE 1=1");
 
-        //add filters
+        // Add filters based on provided parameters
         if (location != null && !location.isEmpty()) {
-            sql.append(" AND location LIKE ?");
+            sql.append(" AND p.location LIKE ?");
         }
         if (minPrice != null) {
-            sql.append(" AND price >= ?");
+            sql.append(" AND p.price >= ?");
         }
         if (maxPrice != null) {
-            sql.append(" AND price <= ?");
+            sql.append(" AND p.price <= ?");
         }
          if (minSize != null) {
-            sql.append(" AND size >= ?");
+            sql.append(" AND p.size >= ?");
         }
         if (maxSize != null) {
-            sql.append(" AND size <= ?");
+            sql.append(" AND p.size <= ?");
         }
         if (minRooms != null) {
-            sql.append(" AND numberOfRooms >= ?");
+            sql.append(" AND p.numberOfRooms >= ?");
         }
          if (maxRooms != null) {
-            sql.append(" AND numberOfRooms <= ?");
+            sql.append(" AND p.numberOfRooms <= ?");
         }
         if (propertyType != null) {
-            sql.append(" AND propertyType = ?");
+            sql.append(" AND p.propertyType = ?");
         }
         if (isForRent != null) {
-             sql.append(" AND isForRent = ?");
-             if (isForRent) { //rent duration filter
+             sql.append(" AND p.isForRent = ?");
+             if (isForRent) {
                  if (minRentDuration != null) {
-                     sql.append(" AND rentDuration >= ?");
+                     sql.append(" AND p.rentDuration >= ?");
                  }
                  if (maxRentDuration != null) {
-                     sql.append(" AND rentDuration <= ?");
+                     sql.append(" AND p.rentDuration <= ?");
                  }
              }
         } else { //if isForRent is not specified, and rent duration is, filter by rent duration for rent properties
              if (minRentDuration != null) {
-                 sql.append(" AND isForRent = TRUE AND rentDuration >= ?");
+                 sql.append(" AND p.isForRent = TRUE AND p.rentDuration >= ?");
              }
              if (maxRentDuration != null) {
-                  sql.append(" AND isForRent = TRUE AND rentDuration <= ?");
+                  sql.append(" AND p.isForRent = TRUE AND p.rentDuration <= ?");
              }
         }
         if (verificationStatus != null) {
-            sql.append(" AND verificationStatus = ?");
+            sql.append(" AND p.verificationStatus = ?");
         }
+
+        //group by property to handle multiple images per property
+        sql.append(" GROUP BY p.propertyID");
 
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
@@ -147,7 +152,7 @@ public class PropertyDAO {
                     String propertyName = rs.getString("propertyName");
                     String propLocation = rs.getString("location");
                     BigDecimal price = rs.getBigDecimal("price");
-                    Integer size = rs.getObject("size", Integer.class); //getObject for null int
+                    Integer size = rs.getObject("size", Integer.class); // getObject for null int
                     Integer numberOfRooms = rs.getObject("numberOfRooms", Integer.class);
                     String propertyTypeString = rs.getString("propertyType");
                     PropertyType propType = null;
@@ -159,12 +164,17 @@ public class PropertyDAO {
                         }
                     }
                     Boolean isForRentValue = rs.getBoolean("isForRent");
-                    Integer rentDurationValue = rs.getObject("rentDuration", Integer.class);
+                    Integer rentDurationValue = rs.getObject("rentDuration", Integer.class); // Use getObject for nullable INT
                     Boolean verificationStatusValue = rs.getBoolean("verificationStatus");
 
                     Property property = new Property(propertyID, sellerID, propertyName, propLocation, price,
                                                size, numberOfRooms, propType, isForRentValue,
                                                rentDurationValue, verificationStatusValue);
+                                               
+                    // Fetch image paths for this property
+                    List<String> imagePaths = getImagePathsForProperty(propertyID);
+                    property.setImagePaths(imagePaths);
+
                     properties.add(property);
                 }
             }
@@ -172,6 +182,7 @@ public class PropertyDAO {
         } catch (SQLException e) {
             System.err.println("Error fetching filtered properties: " + e.getMessage());
             e.printStackTrace();
+            // Depending on error handling strategy, you might want to throw a custom exception
         }
         return properties;
     }
@@ -206,9 +217,15 @@ public class PropertyDAO {
                     Integer rentDuration = rs.getObject("rentDuration", Integer.class);
                     Boolean verificationStatus = rs.getBoolean("verificationStatus");
 
-                    return new Property(propertyID, sellerID, propertyName, location, price,
+                    Property property = new Property(propertyID, sellerID, propertyName, location, price,
                                         size, numberOfRooms, propertyType, isForRent,
                                         rentDuration, verificationStatus);
+                    
+                    // Fetch image paths for this property
+                    List<String> imagePaths = getImagePathsForProperty(propertyID);
+                    property.setImagePaths(imagePaths);
+
+                    return property;
                 }
             }
 
@@ -219,7 +236,7 @@ public class PropertyDAO {
         return null;
     }
 
-    //add a new property to the database
+    // Method to add a new property to the database
     public Property createProperty(Property property) {
         String sql = "INSERT INTO Properties (sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -284,7 +301,7 @@ public class PropertyDAO {
         return null;
     }
 
-    //update an existing property in database
+    // Method to update an existing property in the database
     public boolean updateProperty(int propertyID, Property property) {
         String sql = "UPDATE Properties SET sellerID = ?, propertyName = ?, location = ?, price = ?, size = ?, numberOfRooms = ?, propertyType = ?, isForRent = ?, rentDuration = ?, verificationStatus = ? WHERE propertyID = ?";
 
@@ -296,7 +313,7 @@ public class PropertyDAO {
             pstmt.setString(3, property.getLocation());
             pstmt.setBigDecimal(4, property.getPrice());
 
-             //nullable fields
+             // Handle nullable fields
             if (property.getSize() != null) {
                 pstmt.setInt(5, property.getSize());
             } else {
@@ -318,17 +335,17 @@ public class PropertyDAO {
             }
 
             pstmt.setBoolean(10, property.getVerificationStatus());
-            pstmt.setInt(11, propertyID); //use propertyID from method parameter
+            pstmt.setInt(11, propertyID); // Use the propertyID from the method parameter
 
             int affectedRows = pstmt.executeUpdate();
 
-            return affectedRows > 0; //true if at least one row was updated
+            return affectedRows > 0;
 
         } catch (SQLException e) {
             System.err.println("Error updating property: " + e.getMessage());
             e.printStackTrace();
         }
-        return false; //false if update failed
+        return false;
     }
 
     //delete a property from database by ID
@@ -346,8 +363,52 @@ public class PropertyDAO {
 
         } catch (SQLException e) {
             System.err.println("Error deleting property: " + e.getMessage());
+            e.printStackTrace();  
+        }
+        return false;
+    }
+
+    //add an image path for property to the database
+    public boolean addImagePath(int propertyID, String imagePath) {
+        String sql = "INSERT INTO PropertyImages (propertyID, imagePath) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, propertyID);
+            pstmt.setString(2, imagePath);
+
+            int affectedRows = pstmt.executeUpdate();
+
+            return affectedRows > 0; //true if insertion successful
+
+        } catch (SQLException e) {
+            System.err.println("Error adding image path for property " + propertyID + ": " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //get image paths for a property
+    public List<String> getImagePathsForProperty(int propertyID) {
+        List<String> imagePaths = new ArrayList<>();
+        String sql = "SELECT imagePath FROM PropertyImages WHERE propertyID = ?";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, propertyID);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    imagePaths.add(rs.getString("imagePath"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching image paths for property " + propertyID + ": " + e.getMessage());
             e.printStackTrace();
         }
-        return false; //false if deletion failed/property not found
+        return imagePaths;
     }
 }
