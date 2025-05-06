@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HOMEQUEST</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -50,41 +48,81 @@
       gap: 12px;
       position: relative;
     }
-    .plus-icon { /* unchanged */ }
-    .dropdown { /* unchanged */ }
-
-    /* Reusable grid for listings */
+    .icons svg {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: stroke 0.3s, fill 0.3s;
+    }
+    .icons svg.feather-heart:hover {
+      fill: #8B0000;
+      stroke: #8B0000;
+    }
+    .icons svg.feather-globe:hover {
+      stroke: white;
+      fill: #8B0000;
+    }
+    .plus-icon {
+      background-color: white;
+      border-radius: 50%;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+      border: none;
+    }
+    .plus-icon svg {
+      stroke: #8B0000;
+    }
+    .plus-icon:hover {
+      background-color: #8B0000;
+    }
+    .plus-icon:hover svg {
+      stroke: white;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 32px;
+      right: 60px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+      color: #333;
+      z-index: 1000;
+    }
+    .dropdown.active {
+      display: block;
+    }
+    .dropdown div {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .dropdown div:hover {
+      background-color: #f0f0f0;
+    }
     .listings {
       display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, auto);
       gap: 16px;
       padding: 24px;
     }
-    .section-title {
-      margin: 0 24px;
-      font-family: 'Epilogue', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: #8B0000;
-    }
-
     .card {
       background: white;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
       position: relative;
-<<<<<<< HEAD
       width: 100%;
       min-height: 380px;
       transition: transform 0.3s ease;
     }
     .card:hover {
       transform: scale(1.02);
-=======
->>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     }
     .card img {
       width: 100%;
@@ -93,33 +131,23 @@
     }
     .card-content {
       padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+      font-size: 14px;
+      color: black;
     }
     .card-content h3 {
       margin: 8px 0 4px;
       font-size: 16px;
       font-weight: 600;
-      color: #8B0000;
-    }
-    .card-content p {
-      margin: 4px 0;
-      font-size: 14px;
-      color: #333;
     }
     .view-button {
-      margin-top: auto;
+      margin-top: 8px;
+      display: inline-block;
       padding: 6px 12px;
       font-size: 13px;
       color: #8B0000;
       border: 1px solid #8B0000;
       border-radius: 6px;
       text-decoration: none;
-<<<<<<< HEAD
-=======
-      text-align: center;
->>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
       transition: background 0.3s, color 0.3s;
     }
     .view-button:hover {
@@ -127,7 +155,6 @@
       color: white;
     }
     .bottom-bar {
-<<<<<<< HEAD
   position: fixed;
   bottom: 0;
   left: 0;
@@ -167,21 +194,6 @@
   margin-bottom: 8px; 
 }
 
-=======
-      position: static;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: white;
-      padding: 12px 24px;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      font-size: 14px;
-      color: #8B0000;
-      font-weight: bold;
-      z-index: 999;
-    }
->>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
   </style>
 </head>
 <body>
@@ -196,12 +208,35 @@
       <input type="text" id="searchInput" placeholder="Search properties..." onkeyup="filterProperties()" />
     </div>
     <div class="icons">
-      <!-- your icons and plus-button markup here -->
-      <a href="listing.html" class="plus-icon">…</a>
+      <a href="likedproperty.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-heart">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+        </svg>
+      </a>
+      <svg id="globe-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-globe">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+      <div id="globe-dropdown" class="dropdown">
+        <div>English</div>
+        <div>Deutsch</div>
+      </div>
+      <a href="listing.html" class="plus-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </a>
+      <a href="profilepage.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-user">
+          <path d="M20 21v-2a4 4 0 0 0-3-3.9M4 21v-2a4 4 0 0 1 3-3.9"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
     </div>
   </header>
 
-<<<<<<< HEAD
   <div class="listings" id="listingsContainer">
 <!-- Card 1 -->
 <div class="card">
@@ -309,6 +344,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
       </svg>
+
+
+
+
+
+
+
+
+
+
+
     </div>
     <img src="https://www.hayesparsons.co.uk/app/uploads/2024/11/rachel-penney-Xm0EocnRbjg-unsplash-1-1024x426.jpg" alt="British Mansion" />
     <div class="card-content">
@@ -320,6 +366,13 @@
       <div class="property-label">Rent</div>
       <div class="price-level">$$$</div>
       <div class="view-button">View Property</div>
+
+
+
+
+
+
+
     </div>
   </div>
   
@@ -329,6 +382,15 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
       </svg>
+
+
+
+
+
+
+
+
+
     </div>
     <img src="https://r-cf.bstatic.com/xdata/images/hotel/max1024x768/233724588.jpg?k=31cfc13693d0845894014af141ab55ab782b648429fd733c50a6feed3ef1fb72&o=" alt="Overwater Villa" />
     <div class="card-content">
@@ -340,6 +402,13 @@
       <div class="property-label">Rent</div>
       <div class="price-level">$</div>
       <div class="view-button">View Property</div>
+
+
+
+
+
+
+
     </div>
   </div>
   
@@ -384,64 +453,6 @@
   </script>
 
 <div class="bottom-bar">
-=======
-  <!-- My Listings (only if logged in) -->
-  <section id="my-listings-section" style="display:none;">
-    <h2 class="section-title">My Listings</h2>
-    <div id="my-listings" class="listings"></div>
-  </section>
-
-  <!-- All Listings -->
-  <section>
-    <h2 class="section-title">All Listings</h2>
-    <div id="all-listings" class="listings"></div>
-  </section>
-
-  <script>
-    // Helper to build a card element from a property object
-    function makeCard(p) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${p.imageUrl||'https://via.placeholder.com/400x180'}" alt="${p.propertyName}">
-        <div class="card-content">
-          <h3>${p.propertyName}</h3>
-          <p>${p.location}</p>
-          <p>${p.numberOfRooms||'–'} rooms • ${p.numberOfBathrooms||'–'} baths</p>
-          <a class="view-button" href="propertydetail.html?id=${p.propertyID}">
-            View Property
-          </a>
-        </div>
-      `;
-      return card;
-    }
-
-    const sellerID = sessionStorage.getItem('sellerID');
-
-    // If seller is logged in, fetch and show "My Listings"
-    if (sellerID) {
-      document.getElementById('my-listings-section').style.display = 'block';
-      fetch(`/api/properties?sellerID=${sellerID}`)
-        .then(r => r.json())
-        .then(list => {
-          const cont = document.getElementById('my-listings');
-          list.forEach(p => cont.appendChild(makeCard(p)));
-        })
-        .catch(console.error);
-    }
-
-    // Always fetch and show "All Listings"
-    fetch('/api/properties')
-      .then(r => r.json())
-      .then(list => {
-        const cont = document.getElementById('all-listings');
-        list.forEach(p => cont.appendChild(makeCard(p)));
-      })
-      .catch(console.error);
-  </script>
-
-  <div class="bottom-bar">
->>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     © 2025 HOMEQUEST. All rights reserved.
   </div>
   </body>
