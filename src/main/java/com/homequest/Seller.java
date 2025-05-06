@@ -1,6 +1,8 @@
 package com.homequest;
 
 import java.sql.Date; //for DateOfBirth
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Seller {
 
@@ -15,6 +17,8 @@ public class Seller {
     private String phoneNumber;
     private String userType; //'Free' or 'Gold'
     private boolean loggedIn = false;
+
+    public Seller() {}
 
     // constructor loading an existing seller (after login)
     // use when retrieving seller data from the database
@@ -34,7 +38,13 @@ public class Seller {
 
     // constructor for registration process (before sellerID is known)
     // creating a new Seller object before inserting into DB
-    public Seller(String fullName, String email, String password, Date dateOfBirth, Boolean consentLocation, String profilePhoto, String phoneNumber) {
+    public Seller(@JsonProperty("fullName") String fullName, 
+                    @JsonProperty("email") String email, 
+                    @JsonProperty("password") String password, 
+                    @JsonProperty("dateOfBirth") Date dateOfBirth, 
+                    @JsonProperty("consentLocation") Boolean consentLocation, 
+                    @JsonProperty("profilePhoto") String profilePhoto, 
+                    @JsonProperty("phoneNumber") String phoneNumber) {
         this.fullName = fullName;
         this.email = email;
         this.password = password; // plain text password
@@ -71,7 +81,7 @@ public class Seller {
     // Private setter for login status
     public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
 
-     @Override
+    @Override
     public String toString() {
         return "Seller{" +
                 "sellerID=" + sellerID +
