@@ -35,7 +35,7 @@
       transition: all 0.3s ease;
     }
     .subscription-button:hover {
-      color: #bfa200;
+      color: #808080;
     }
   </style>
 </head>
@@ -51,7 +51,7 @@
         <h1 class="text-2xl font-semibold font-inter text-[#8B0000]">Jon Doe</h1>
         <p class="text-sm text-gray-600">doe@example.com</p>
         <p class="text-sm text-gray-600">Location: Leipzig, Germany</p>
-        <a href="subscription.html" class="subscription-button text-sm font-semibold bg-transparent cursor-pointer">Subscription Status: Gold</a>
+        <a href="subscription.html" class="subscription-button text-sm font-semibold bg-transparent cursor-pointer">Subscription Status: Silver</a>
       </div>
       <a href="listing.html" class="add-button bg-[#8B0000] text-white text-3xl rounded-full w-14 h-14 flex items-center justify-center">
         +
@@ -64,11 +64,18 @@
       <div class="bg-white rounded-2xl shadow-md overflow-hidden">
         <div class="relative">
           <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/287895223.jpg?k=9febc613f4efb989593f01406773d2a7d36878f44e0ef6ba7ebde257787b19a3&o=&hp=1" alt="Urban Hideaway Madrid" class="w-full h-60 object-cover" />
-          <button class="absolute top-3 right-3 bg-white p-1.5 rounded-full shadow text-gray-600 hover:text-[#8B0000]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-            </svg>
-          </button>
+          <div class="absolute top-3 right-3 flex space-x-2">
+            <button class="bg-white p-1.5 rounded-full shadow text-gray-600 hover:text-yellow-600" title="Edit">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h2M12 3v2m6.364 1.636a2 2 0 010 2.828L10.828 17H8v-2.828l7.536-7.536a2 2 0 012.828 0z" />
+              </svg>
+            </button>
+            <button class="bg-white p-1.5 rounded-full shadow text-gray-600 hover:text-red-600" title="Delete">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H9" />
+              </svg>
+            </button>
+          </div>
         </div>
         <div class="p-5 font-inter">
           <p class="text-sm text-gray-800 font-semibold mb-1">8.8 / 10.0</p>
@@ -88,3 +95,44 @@
   </div>
 </body>
 </html>
+
+<script>
+  // Dummy property ID; in real use, get this dynamically from backend
+  const propertyId = 1;
+
+  // Hook edit button
+  document.querySelector('[title="Edit"]').addEventListener('click', async () => {
+    const newTitle = prompt("Enter new property title:");
+    if (!newTitle) return;
+
+    const res = await fetch(`/api/properties/${propertyId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: newTitle }) // Adjust fields as needed
+    });
+
+    if (res.ok) {
+      alert("Property updated.");
+      location.reload();
+    } else {
+      alert("Failed to update property.");
+    }
+  });
+
+  // Hook delete button
+  document.querySelector('[title="Delete"]').addEventListener('click', async () => {
+    const confirmed = confirm("Are you sure you want to delete this property?");
+    if (!confirmed) return;
+
+    const res = await fetch(`/api/properties/${propertyId}`, {
+      method: 'DELETE'
+    });
+
+    if (res.ok) {
+      alert("Property deleted.");
+      location.reload();
+    } else {
+      alert("Failed to delete property.");
+    }
+  });
+</script>
