@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Property Details - HOMEQUEST</title>
-  <link rel="stylesheet" href="login.css">
-  <link rel="stylesheet" href="property-detail.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Property Details – HOMEQUEST</title>
   <style>
     body {
       background-color: #f8f8f8;
-      font-family: 'Inter', 'Epilogue', sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 20px;
       color: #333;
     }
-
     .property-box {
       background: #fff;
       padding: 30px;
@@ -22,25 +19,22 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       margin: 40px auto;
       max-width: 700px;
-      text-align: center;
     }
-
     .home-icon {
+      text-align: center;
       margin-bottom: 10px;
     }
-
     .home-icon svg {
       width: 64px;
       height: 64px;
       fill: #8B0000;
     }
-
-    .property-details {
-      max-width: 600px;
-      margin: 0 auto;
+    h2#title {
       text-align: center;
+      margin: 0 0 20px;
+      font-family: 'Epilogue', sans-serif;
+      color: #8B0000;
     }
-
     .carousel {
       position: relative;
       overflow: hidden;
@@ -48,7 +42,6 @@
       border-radius: 12px;
       margin-bottom: 15px;
     }
-
     .heart-icon {
       position: absolute;
       top: 10px;
@@ -59,23 +52,20 @@
       stroke: #8B0000;
       stroke-width: 2;
       z-index: 1;
+      cursor: pointer;
       transition: fill 0.3s;
     }
-
     .heart-icon:hover {
       fill: #8B0000;
     }
-
     .carousel-images {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
-
     .carousel-images img {
       width: 100%;
       flex-shrink: 0;
     }
-
     .carousel-buttons {
       position: absolute;
       top: 50%;
@@ -84,7 +74,6 @@
       justify-content: space-between;
       transform: translateY(-50%);
     }
-
     .carousel-buttons button {
       background: rgba(0, 0, 0, 0.5);
       border: none;
@@ -93,26 +82,25 @@
       cursor: pointer;
       border-radius: 50%;
     }
-
     .property-info {
       font-size: 16px;
       line-height: 1.6;
       margin-bottom: 20px;
       text-align: left;
     }
-
+    .property-info strong {
+      width: 100px;
+      display: inline-block;
+    }
     .property-description {
       text-align: left;
       margin-bottom: 30px;
       font-size: 15px;
       line-height: 1.6;
     }
-
     .contact-section {
-      margin-top: 30px;
       text-align: center;
     }
-
     .contact-section button {
       background-color: #8B0000;
       color: white;
@@ -124,7 +112,6 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-
     .contact-section button:hover {
       background-color: #a10000;
     }
@@ -133,60 +120,99 @@
 <body>
   <div class="property-box">
     <div class="home-icon">
-      <svg id="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 28 L32 8 L56 28 V56 H8 Z" />
       </svg>
     </div>
-    <h2>Property Details</h2>
-    <div class="property-details">
-      <div class="carousel">
-        <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-        <div class="carousel-images" id="carousel-images">
-          <img src="property-image1.jpg" alt="Property Image 1">
-          <img src="property-image2.jpg" alt="Property Image 2">
-          <img src="property-image3.jpg" alt="Property Image 3">
-        </div>
-        <div class="carousel-buttons">
-          <button onclick="prevSlide()">&#10094;</button>
-          <button onclick="nextSlide()">&#10095;</button>
-        </div>
+
+    <h2 id="title">Loading…</h2>
+
+    <div class="carousel">
+      <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                 4.42 3 7.5 3c1.74 0 3.41 0.81 
+                 4.5 2.09C13.09 3.81 14.76 3 
+                 16.5 3 19.58 3 22 5.42 
+                 22 8.5c0 3.78-3.4 6.86-8.55 
+                 11.54L12 21.35z" />
+      </svg>
+      <div class="carousel-images" id="carousel-images">
+        <!-- js will inject <img> tags here -->
       </div>
-      <div class="property-info">
-        <strong>Size:</strong> 120 sqm<br>
-        <strong>Rooms:</strong> 3<br>
-        <strong>Type:</strong> Apartment<br>
-        <strong>Price:</strong> $200,000<br>
-        <strong>Location:</strong> Downtown, Cityville<br>
-      </div>
-      <div class="property-description">
-        This modern 3-bedroom apartment located in the heart of Downtown Cityville offers spacious living, contemporary finishes, and proximity to shops, cafes, and transport. Ideal for families or professionals looking for comfort and convenience in an urban setting.
-      </div>
-      <div class="contact-section">
-        <button type="button">Contact Property Owner</button>
+      <div class="carousel-buttons">
+        <button onclick="prevSlide()">&#10094;</button>
+        <button onclick="nextSlide()">&#10095;</button>
       </div>
     </div>
+
+    <div class="property-info">
+      <div><strong>Size:</strong> <span id="size">—</span> sqm</div>
+      <div><strong>Rooms:</strong> <span id="rooms">—</span></div>
+      <div><strong>Type:</strong> <span id="type">—</span></div>
+      <div><strong>Price:</strong> <span id="price">—</span></div>
+      <div><strong>Location:</strong> <span id="location">—</span></div>
+    </div>
+
+    <div class="property-description">
+      <p id="desc">Loading description…</p>
+    </div>
+
+    <div class="contact-section">
+      <button id="contact-btn">Contact Property Owner</button>
+    </div>
   </div>
+
   <script>
-    (function() {
-      let currentIndex = 0;
-      const images = document.getElementById('carousel-images');
-      const numSlides = images.children.length;
+    
+    let currentSlide = 0;
+    function showSlide(idx) {
+      const c = document.getElementById('carousel-images');
+      const total = c.children.length;
+      if (!total) return;
+      currentSlide = (idx + total) % total;
+      c.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function prevSlide() { showSlide(currentSlide - 1); }
 
-      window.showSlide = function(index) {
-        images.style.transform = `translateX(-${index * 100}%)`;
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) {
+        document.body.innerHTML = '<p>No property ID specified.</p>';
+        return;
       }
 
-      window.prevSlide = function() {
-        currentIndex = (currentIndex === 0) ? numSlides - 1 : currentIndex - 1;
-        showSlide(currentIndex);
-      }
+      fetch(`/api/properties/${id}`)
+        .then(r => r.json())
+        .then(p => {
+          document.getElementById('title').textContent    = p.propertyName;
+          document.getElementById('location').textContent = p.location;
+          document.getElementById('price').textContent    = '$' + p.price.toLocaleString();
+          document.getElementById('desc').textContent     = p.description || '';
 
-      window.nextSlide = function() {
-        currentIndex = (currentIndex === numSlides - 1) ? 0 : currentIndex + 1;
-        showSlide(currentIndex);
-      }
+          document.getElementById('size').textContent    = p.size     || '—';
+          document.getElementById('rooms').textContent   = p.numberOfRooms || '—';
+          document.getElementById('type').textContent    = p.propertyType || '—';
+
+     
+          const container = document.getElementById('carousel-images');
+          (p.imageUrls || ['placeholder.jpg']).forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            container.appendChild(img);
+          });
+          showSlide(0);
+
+          document.getElementById('contact-btn')
+            .addEventListener('click', () => {
+              window.location.href = `mailto:owner@example.com?subject=Inquiry about ${encodeURIComponent(p.propertyName)}`;
+            });
+        })
+        .catch(err => {
+          console.error(err);
+          document.body.innerHTML = '<p>Failed to load property details.</p>';
+        });
     })();
   </script>
 </body>
