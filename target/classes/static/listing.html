@@ -51,17 +51,30 @@
       width: 100%;
       max-width: 600px;
     }
-    input, textarea {
+    input, textarea, select {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 0.5rem;
       font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background-color: #fff;
+      color: #333;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%238B0000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
     }
     textarea {
       resize: vertical;
       min-height: 100px;
+    }
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: #8B0000;
+      box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
     }
     .upload-section {
       margin-bottom: 1rem;
@@ -118,14 +131,18 @@
     <div class="box">
       <h2>List a New Property</h2>
       <form onsubmit="return validateUpload()">
+        <select name="listingType">
+          <option value="">Select Listing Type</option>
+          <option value="sale">For Sale</option>
+          <option value="rent">For Rent</option>
+        </select>
+
         <input type="text" name="title" placeholder="Title" />
         <textarea name="description" placeholder="Description"></textarea>
         <input type="text" name="price" placeholder="$$$" />
         <input type="text" name="country" placeholder="Country" />
         <input type="text" name="city" placeholder="City" />
-
         <input type="text" name="propertyType" placeholder="Property Type" />
-
         <input type="text" name="size" placeholder="Property Size (m²)" />
         <input type="text" name="rooms" placeholder="Number of Rooms" />
         <input type="text" name="bathrooms" placeholder="Number of Bathrooms" />
