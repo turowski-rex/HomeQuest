@@ -5,19 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-import java.sql.Statement;
 
 @Repository
 public class PropertyDAO {
 
     public void updateDetails(Property property, String newLocation, BigDecimal newPrice, Integer newSize, Integer newNumberOfRooms, PropertyType newType) {
-        // future update - make this interact with database
         System.out.println("Update details method in PropertyDAO needs database implementation.");
-        // Placeholder - does not use BD
         property.setLocation(newLocation);
         property.setPrice(newPrice);
         property.setSize(newSize);
@@ -26,45 +23,154 @@ public class PropertyDAO {
         System.out.println("Updated Details for:" + property.getPropertyID());
     }
 
-    //get all properties from DB
-    public List<Property> getAllProperties() {
+    //get properties from database with filters
+    public List<Property> getFilteredProperties(
+            String location,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            Integer minSize,
+            Integer maxSize,
+            Integer minRooms,
+            Integer maxRooms,
+            PropertyType propertyType,
+            Boolean isForRent,
+            Integer minRentDuration,
+            Integer maxRentDuration,
+            Boolean verificationStatus) {
+
         List<Property> properties = new ArrayList<>();
-        String sql = "SELECT propertyID, sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus FROM Properties";
+        StringBuilder sql = new StringBuilder("SELECT propertyID, sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus FROM Properties WHERE 1=1");
+
+        //add filters
+        if (location != null && !location.isEmpty()) {
+            sql.append(" AND location LIKE ?");
+        }
+        if (minPrice != null) {
+            sql.append(" AND price >= ?");
+        }
+        if (maxPrice != null) {
+            sql.append(" AND price <= ?");
+        }
+         if (minSize != null) {
+            sql.append(" AND size >= ?");
+        }
+        if (maxSize != null) {
+            sql.append(" AND size <= ?");
+        }
+        if (minRooms != null) {
+            sql.append(" AND numberOfRooms >= ?");
+        }
+         if (maxRooms != null) {
+            sql.append(" AND numberOfRooms <= ?");
+        }
+        if (propertyType != null) {
+            sql.append(" AND propertyType = ?");
+        }
+        if (isForRent != null) {
+             sql.append(" AND isForRent = ?");
+             if (isForRent) { //rent duration filter
+                 if (minRentDuration != null) {
+                     sql.append(" AND rentDuration >= ?");
+                 }
+                 if (maxRentDuration != null) {
+                     sql.append(" AND rentDuration <= ?");
+                 }
+             }
+        } else { //if isForRent is not specified, and rent duration is, filter by rent duration for rent properties
+             if (minRentDuration != null) {
+                 sql.append(" AND isForRent = TRUE AND rentDuration >= ?");
+             }
+             if (maxRentDuration != null) {
+                  sql.append(" AND isForRent = TRUE AND rentDuration <= ?");
+             }
+        }
+        if (verificationStatus != null) {
+            sql.append(" AND verificationStatus = ?");
+        }
 
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
 
-            while (rs.next()) {
-                int propertyID = rs.getInt("propertyID");
-                int sellerID = rs.getInt("sellerID");
-                String propertyName = rs.getString("propertyName");
-                String location = rs.getString("location");
-                BigDecimal price = rs.getBigDecimal("price");
-                Integer size = rs.getObject("size", Integer.class); //use getObject for null int
-                Integer numberOfRooms = rs.getObject("numberOfRooms", Integer.class); //same here
-                String propertyTypeString = rs.getString("propertyType");
-                PropertyType propertyType = null;
-                if (propertyTypeString != null) {
-                    try {
-                        propertyType = PropertyType.fromDbValue(propertyTypeString);
-                    } catch (IllegalArgumentException e) {
-                        System.err.println("Unknown PropertyType value in database: " + propertyTypeString);
+            int paramIndex = 1;
+            if (location != null && !location.isEmpty()) {
+                pstmt.setString(paramIndex++, "%" + location + "%");
+            }
+            if (minPrice != null) {
+                pstmt.setBigDecimal(paramIndex++, minPrice);
+            }
+            if (maxPrice != null) {
+                pstmt.setBigDecimal(paramIndex++, maxPrice);
+            }
+             if (minSize != null) {
+                pstmt.setInt(paramIndex++, minSize);
+            }
+            if (maxSize != null) {
+                pstmt.setInt(paramIndex++, maxSize);
+            }
+             if (minRooms != null) {
+                pstmt.setInt(paramIndex++, minRooms);
+            }
+             if (maxRooms != null) {
+                pstmt.setInt(paramIndex++, maxRooms);
+            }
+            if (propertyType != null) {
+                pstmt.setString(paramIndex++, propertyType.getDbValue());
+            }
+            if (isForRent != null) {
+                 pstmt.setBoolean(paramIndex++, isForRent);
+                  if (isForRent) {
+                     if (minRentDuration != null) {
+                         pstmt.setInt(paramIndex++, minRentDuration);
+                     }
+                     if (maxRentDuration != null) {
+                         pstmt.setInt(paramIndex++, maxRentDuration);
+                     }
+                 }
+            } else {
+                 if (minRentDuration != null) {
+                     //isForRent is in the SQL string already
+                     pstmt.setInt(paramIndex++, minRentDuration);
+                 }
+                 if (maxRentDuration != null) {
+                     pstmt.setInt(paramIndex++, maxRentDuration);
+                 }
+            }
+
+            if (verificationStatus != null) {
+                pstmt.setBoolean(paramIndex++, verificationStatus);
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int propertyID = rs.getInt("propertyID");
+                    int sellerID = rs.getInt("sellerID");
+                    String propertyName = rs.getString("propertyName");
+                    String propLocation = rs.getString("location");
+                    BigDecimal price = rs.getBigDecimal("price");
+                    Integer size = rs.getObject("size", Integer.class); //getObject for null int
+                    Integer numberOfRooms = rs.getObject("numberOfRooms", Integer.class);
+                    String propertyTypeString = rs.getString("propertyType");
+                    PropertyType propType = null;
+                    if (propertyTypeString != null) {
+                        try {
+                            propType = PropertyType.fromDbValue(propertyTypeString);
+                        } catch (IllegalArgumentException e) {
+                            System.err.println("Warning: Unknown PropertyType value in database: " + propertyTypeString);
+                        }
                     }
-                }
-                Boolean isForRent = rs.getBoolean("isForRent");
-                //check SQL for value = NULL before getting the int
-                Integer rentDuration = rs.getObject("rentDuration", Integer.class);
-                Boolean verificationStatus = rs.getBoolean("verificationStatus");
+                    Boolean isForRentValue = rs.getBoolean("isForRent");
+                    Integer rentDurationValue = rs.getObject("rentDuration", Integer.class);
+                    Boolean verificationStatusValue = rs.getBoolean("verificationStatus");
 
-                Property property = new Property(propertyID, sellerID, propertyName, location, price,
-                                               size, numberOfRooms, propertyType, isForRent,
-                                               rentDuration, verificationStatus);
-                properties.add(property);
+                    Property property = new Property(propertyID, sellerID, propertyName, propLocation, price,
+                                               size, numberOfRooms, propType, isForRentValue,
+                                               rentDurationValue, verificationStatusValue);
+                    properties.add(property);
+                }
             }
 
         } catch (SQLException e) {
-            System.err.println("Error fetching properties: " + e.getMessage());
+            System.err.println("Error fetching filtered properties: " + e.getMessage());
             e.printStackTrace();
         }
         return properties;
@@ -93,6 +199,7 @@ public class PropertyDAO {
                             propertyType = PropertyType.fromDbValue(propertyTypeString);
                         } catch (IllegalArgumentException e) {
                              System.err.println("Warning: Unknown PropertyType value in database: " + propertyTypeString);
+                            // Depending on requirements, you might set a default, leave null, or skip this property
                         }
                     }
                     Boolean isForRent = rs.getBoolean("isForRent");
@@ -109,7 +216,7 @@ public class PropertyDAO {
             System.err.println("Error fetching property by ID: " + e.getMessage());
             e.printStackTrace();
         }
-        return null; //null if property is not found or an error occurs
+        return null;
     }
 
     //add a new property to the database
@@ -153,7 +260,7 @@ public class PropertyDAO {
                 try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int propertyID = generatedKeys.getInt(1);
-                        //make a new Property object with the generated ID
+                        // Create a new Property object with the generated ID
                         Property createdProperty = new Property(propertyID,
                                                               property.getSellerID(),
                                                               property.getPropertyName(),
@@ -174,7 +281,7 @@ public class PropertyDAO {
             System.err.println("Error creating property: " + e.getMessage());
             e.printStackTrace();
         }
-        return null; //null if creation failed
+        return null;
     }
 
     //update an existing property in database
@@ -243,5 +350,4 @@ public class PropertyDAO {
         }
         return false; //false if deletion failed/property not found
     }
-
 }

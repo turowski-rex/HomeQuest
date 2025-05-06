@@ -65,7 +65,7 @@ public class SellerController {
         if (success) {
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();R
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
