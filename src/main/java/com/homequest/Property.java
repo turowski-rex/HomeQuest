@@ -167,5 +167,4 @@ public class Property {
     }
     */
 
-    // Optional: Implement equals() and hashCode() here too, based on propertyID
 }
