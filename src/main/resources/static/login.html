@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - HOMEQUEST</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Epilogue:wght@500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Epilogue:wght@500;700&display=swap"
+    rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -16,20 +18,17 @@
       height: 100vh;
       background-color: #f8f8f8;
     }
-
     .header {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 30px;
     }
-
     .home-icon {
       width: 64px;
       height: 64px;
       margin-bottom: 5px;
     }
-
     .home-icon svg {
       width: 100%;
       height: 100%;
@@ -37,7 +36,6 @@
       fill: #8B0000;
       stroke-width: 6;
     }
-
     h1 {
       margin: 0;
       color: #8B0000;
@@ -47,7 +45,6 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
     .login-form {
       display: flex;
       flex-direction: column;
@@ -58,14 +55,12 @@
       background-color: #f9f9f9;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-
     .login-form input {
       padding: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 16px;
     }
-
     .login-form button {
       padding: 10px;
       font-size: 16px;
@@ -77,23 +72,14 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     .login-form button:hover {
       background-color: #a40000;
     }
-
-    .register-link {
+    .register-link, .guest-link {
       font-size: 14px;
       text-align: center;
-      margin-bottom: 5px;
+      margin: 0;
     }
-
-    .guest-link {
-      font-size: 14px;
-      text-align: center;
-      margin-top: 0;
-    }
-
     .register-link a,
     .guest-link a {
       color: #8B0000;
@@ -111,18 +97,35 @@
     </div>
     <h1>HOMEQUEST</h1>
   </div>
+
   <form id="loginForm" class="login-form" aria-label="Login Form">
-    <input type="email" placeholder="Email" required />
-    <input type="password" placeholder="Password" required />
+    <!-- Added name attributes so JS can read them -->
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
     <button type="submit">Login</button>
     <p class="register-link">Don't have an account? <a href="register.html">Register</a></p>
     <p class="guest-link"><a href="guesthomepage.html">Continue as Buyer</a></p>
   </form>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = "userhomepage.html";
+    document.getElementById('loginForm').addEventListener('submit', async ev => {
+      ev.preventDefault();
+      const data = {
+        email:    ev.target.email.value,
+        password: ev.target.password.value
+      };
+      const res = await fetch('/api/sellers/login', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        const seller = await res.json();
+        sessionStorage.setItem('sellerID', seller.sellerID);
+        window.location.href = 'profilepage.html';
+      } else {
+        alert('Login failed: ' + res.statusText);
+      }
     });
   </script>
 </body>

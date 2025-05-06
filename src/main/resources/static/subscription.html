@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Your Plan - HomeQuest</title>
+  <title>Choose Your Plan – HOMEQUEST</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap"
+    rel="stylesheet">
   <style>
     body {
       background-color: #ffffff;
@@ -22,13 +25,20 @@
       text-align: center;
       font-size: 24px;
       font-weight: bold;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       color: #8B0000;
     }
+    .choose-section {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+    .highlight { color: silver; font-weight: bold; }
+    .gold      { color: #b8860b; font-weight: bold; }
     .plan-container {
       display: flex;
       justify-content: center;
-      gap: 60px;
+      gap: 40px;
       flex-wrap: wrap;
     }
     .plan-box {
@@ -37,7 +47,7 @@
       border-radius: 32px;
       padding: 20px 30px;
       text-align: center;
-      width: 220px;
+      width: 180px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
@@ -49,22 +59,9 @@
       color: white;
     }
     .plan-box h3, .plan-box p {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       font-family: 'Epilogue', sans-serif;
       font-size: 16px;
-    }
-    .choose-section {
-      text-align: center;
-      margin: 50px 0 30px;
-      font-size: 18px;
-    }
-    .highlight {
-      color: silver;
-      font-weight: bold;
-    }
-    .gold {
-      color: #b8860b;
-      font-weight: bold;
     }
   </style>
 </head>
@@ -78,23 +75,76 @@
     Stay <span class="highlight">Silver</span> or go <span class="gold">Gold</span>
   </div>
 
+  <!-- SHOW current subscription here -->
+  <div id="current-sub" class="choose-section">
+    Loading your subscription…
+  </div>
+
   <div class="plan-container">
-    <a href="payment.html" class="plan-box">
+    <div class="plan-box" data-type="Weekly">
       <h3>Pay Weekly</h3>
       <p>$1.50/week</p>
-    </a>
-    <a href="payment.html" class="plan-box">
+    </div>
+    <div class="plan-box" data-type="Monthly">
       <h3>Pay Monthly</h3>
       <p>$5.00/month</p>
-    </a>
-    <a href="payment.html" class="plan-box">
+    </div>
+    <div class="plan-box" data-type="Quarterly">
       <h3>Pay Quarterly</h3>
       <p>$13.00/quarter</p>
-    </a>
-    <a href="payment.html" class="plan-box">
+    </div>
+    <div class="plan-box" data-type="Yearly">
       <h3>Pay Yearly</h3>
       <p>$50.00/year</p>
-    </a>
+    </div>
   </div>
+
+  <script>
+    const currentSubEl = document.getElementById('current-sub');
+    const storedType = sessionStorage.getItem('subscriptionType');
+
+    // 1) Load & display current subscription
+    async function loadCurrent() {
+      if (!storedType) {
+        currentSubEl.textContent = 'You have no active subscription.';
+        return;
+      }
+      try {
+        const res = await fetch(`/api/subscriptions/${storedType}`);
+        if (!res.ok) throw new Error('Not found');
+        const sub = await res.json();
+        const date = new Date(sub.startDate).toLocaleDateString();
+        currentSubEl.textContent = 
+          `Current: ${sub.subscriptionType} (since ${date})`;
+      } catch {
+        currentSubEl.textContent = 'Could not load subscription.';
+      }
+    }
+    loadCurrent();
+
+    // 2) Click handler for each plan
+    document.querySelectorAll('.plan-box').forEach(box => {
+      box.addEventListener('click', async () => {
+        const newType = box.dataset.type;
+        try {
+          const res = await fetch('/api/subscriptions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              subscriptionType: newType, 
+              startDate: new Date()
+            })
+          });
+          if (!res.ok) throw new Error(await res.text());
+          sessionStorage.setItem('subscriptionType', newType);
+          alert(`Subscribed as ${newType}!`);
+          loadCurrent();
+        } catch (err) {
+          console.error(err);
+          alert('Subscription failed: ' + err.message);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

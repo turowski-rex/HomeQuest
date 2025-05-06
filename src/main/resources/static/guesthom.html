@@ -10,16 +10,19 @@
       margin: 0;
       font-family: 'Inter', sans-serif;
       background-color: #f8f8f8;
-      padding-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
     header {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px 24px;
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      position: relative;
+      z-index: 1001;
     }
     .logo-section {
       display: flex;
@@ -34,6 +37,9 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .search-bar input {
       padding: 8px 12px;
@@ -42,10 +48,10 @@
       border: 1px solid #ccc;
       outline: none;
     }
-    .icons {
+    .globe-icon {
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 12px;
       position: relative;
       z-index: 1002;
     }
@@ -67,7 +73,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       font-size: 14px;
       color: #333;
-      z-index: 1000;
+      z-index: 2000;
+      min-width: 120px;
     }
     .language-dropdown.active {
       display: block;
@@ -130,6 +137,16 @@
       height: 180px;
       object-fit: cover;
     }
+    .tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: orange;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
     .card-content {
       padding: 16px;
       font-size: 14px;
@@ -139,28 +156,17 @@
       margin: 8px 0 4px;
       font-size: 16px;
       font-weight: 600;
-      color: #8B0000;
-    }
-    .card-content p {
-      margin: 4px 0;
-      font-size: 14px;
-      color: #333;
-    }
-    .card-content .price {
-      margin-top: auto;
-      font-weight: bold;
-      color: #000;
     }
     .view-button {
       margin-top: 8px;
-      padding: 8px 12px;
+      display: inline-block;
+      padding: 6px 12px;
       font-size: 13px;
       color: #8B0000;
       border: 1px solid #8B0000;
       border-radius: 6px;
-      text-align: center;
       text-decoration: none;
-      transition: background 0.3s, color 0.3s;
+      transition: 0.3s;
     }
     .view-button:hover {
       background: #8B0000;
@@ -181,9 +187,7 @@
 <body>
   <header>
     <div class="logo-section">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="#8B0000">
-        <path d="M8 28 L32 8 L56 28 V56 H8 Z"/>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="#8B0000"><path d="M8 28 L32 8 L56 28 V56 H8 Z"/></svg>
       HOMEQUEST
     </div>
     <div class="search-bar">
@@ -319,13 +323,4 @@
         languageDropdown.classList.remove('active');
       }
     });
-
-    function filterProperties() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const content = card.innerText.toLowerCase();
-        card.style.display = content.includes(input) ? 'block' : 'none';
-      });
-    }
   </script>

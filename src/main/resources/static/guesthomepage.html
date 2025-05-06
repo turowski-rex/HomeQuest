@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<<<<<<< HEAD
   <title>HOMEQUEST</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap" rel="stylesheet" />
+=======
+  <title>Guest – HOMEQUEST</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap"
+    rel="stylesheet" />
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
   <style>
     body {
       margin: 0;
@@ -48,6 +55,7 @@
       gap: 12px;
       position: relative;
     }
+<<<<<<< HEAD
     .icons button {
       padding: 6px 12px;
       border: 1px solid #8B0000;
@@ -72,11 +80,31 @@
       stroke: white;
       fill: #8B0000;
     }
+=======
+    .plus-icon {
+      background-color: white;
+      border-radius: 50%;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .plus-icon svg { stroke: #8B0000; }
+    .plus-icon:hover { background-color: #8B0000; }
+    .plus-icon:hover svg { stroke: white; }
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     .dropdown {
       display: none;
       position: absolute;
       top: 32px;
+<<<<<<< HEAD
       right: 100px;
+=======
+      right: 60px;
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
       background: white;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -85,6 +113,7 @@
       color: #333;
       z-index: 1000;
     }
+<<<<<<< HEAD
     .dropdown.active {
       display: block;
     }
@@ -101,12 +130,24 @@
       grid-template-rows: repeat(3, auto);
       gap: 16px;
       padding: 24px;
+=======
+    .dropdown.active { display: block; }
+    .dropdown div:hover { background-color: #f0f0f0; }
+
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+      gap: 16px;
+      padding: 24px;
+      flex: 1;
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     }
     .card {
       background: white;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+<<<<<<< HEAD
       position: relative;
       width: 100%;
       min-height: 380px;
@@ -114,6 +155,10 @@
     }
     .card:hover {
       transform: scale(1.02);
+=======
+      display: flex;
+      flex-direction: column;
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     }
     .card img {
       width: 100%;
@@ -122,22 +167,39 @@
     }
     .card-content {
       padding: 16px;
+<<<<<<< HEAD
       font-size: 14px;
       color: black;
+=======
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     }
     .card-content h3 {
       margin: 8px 0 4px;
       font-size: 16px;
       font-weight: 600;
+      color: #8B0000;
+    }
+    .card-content p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #333;
+    }
+    .card-content .price {
+      margin-top: auto;
+      font-weight: bold;
+      color: #000;
     }
     .view-button {
       margin-top: 8px;
-      display: inline-block;
-      padding: 6px 12px;
+      padding: 8px 12px;
       font-size: 13px;
       color: #8B0000;
       border: 1px solid #8B0000;
       border-radius: 6px;
+      text-align: center;
       text-decoration: none;
       transition: background 0.3s, color 0.3s;
     }
@@ -145,6 +207,7 @@
       background: #8B0000;
       color: white;
     }
+<<<<<<< HEAD
     .bottom-bar {
   position: fixed;
   bottom: 0;
@@ -164,6 +227,16 @@
       top: 10px;
       right: 10px;
       z-index: 1;
+=======
+    footer {
+      background: white;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 14px;
+      color: #8B0000;
+      font-weight: bold;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     }
     .card .heart-icon svg {
       width: 16px;
@@ -196,18 +269,34 @@
       HOMEQUEST
     </div>
     <div class="search-bar">
+<<<<<<< HEAD
       <input type="text" id="searchInput" placeholder="Search properties..." onkeyup="filterProperties()" />
     </div>
     <div class="icons">
       <svg id="globe-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-globe">
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="2" y1="12" x2="22" y2="12"></line>
+=======
+      <input type="text" placeholder="Search properties..." />
+    </div>
+    <div class="icons">
+      <!-- Liked properties -->
+      <a href="likedproperty.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" class="feather-heart">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+        </svg>
+      </a>
+      <!-- Language selector -->
+      <svg id="globe-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" class="feather-globe">
+        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line>
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
       </svg>
       <div id="globe-dropdown" class="dropdown">
         <div>English</div>
         <div>Deutsch</div>
       </div>
+<<<<<<< HEAD
       <button onclick="window.location.href='login.html'">Login</button>
       <button onclick="window.location.href='register.html'">Register</button>
     </div>
@@ -372,8 +461,30 @@
       <div class="view-button">View Property</div>
     </div>
   </div>
+=======
+      <!-- Add listing -->
+      <button class="plus-icon" onclick="location.href='listing.html'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+      <!-- Profile -->
+      <a href="profilepage.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#8B0000" stroke-width="2" class="feather-user">
+          <path d="M20 21v-2a4 4 0 0 0-3-3.9M4 21v-2a4 4 0 0 1 3-3.9"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- This is where we inject our cards -->
+  <div id="listings" class="listings"></div>
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
 
   <script>
+<<<<<<< HEAD
     document.getElementById('globe-icon').addEventListener('click', function () {
       document.getElementById('globe-dropdown').classList.toggle('active');
     });
@@ -381,6 +492,45 @@
       if (!e.target.closest('#globe-icon') && !e.target.closest('#globe-dropdown')) {
         document.getElementById('globe-dropdown').classList.remove('active');
       }
+=======
+    const container = document.getElementById('listings');
+
+    fetch('/api/properties')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load listings');
+        return res.json();
+      })
+      .then(list => {
+        list.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <img src="${p.imagePaths?.[0] || 'https://via.placeholder.com/400x180'}"
+                 alt="${p.propertyName}">
+            <div class="card-content">
+              <h3>${p.propertyName}</h3>
+              <p>${p.location}</p>
+              <p>${p.numberOfRooms || '–'} rooms • ${p.size || '–'} m²</p>
+              <p class="price">€${p.price.toFixed(2)}</p>
+              <a href="propertydetail.html?id=${p.propertyID}"
+                 class="view-button">
+                View Property
+              </a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        container.innerHTML = 
+          '<p style="grid-column:1/-1; text-align:center; color:red;">Unable to load listings.</p>';
+      });
+
+    // Toggle language dropdown
+    document.getElementById('globe-icon').addEventListener('click', () => {
+      document.getElementById('globe-dropdown').classList.toggle('active');
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
     });
 
     function filterProperties() {
@@ -392,6 +542,7 @@
       });
     }
   </script>
+<<<<<<< HEAD
 
 <div class="bottom-bar">
     © 2025 HOMEQUEST. All rights reserved.
@@ -399,3 +550,7 @@
   </body>
   </html>
   
+=======
+</body>
+</html>
+>>>>>>> c84ca29bb9f51be2c2b660464e78fab422c64d0b
