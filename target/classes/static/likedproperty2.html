@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Liked Properties</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Epilogue:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+      padding: 24px;
+    }
+    h1 {
+      color: #8B0000;
+      font-family: 'Epilogue', sans-serif;
+    }
+    .liked-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 16px 0;
+      overflow: hidden;
+      display: flex;
+      gap: 16px;
+    }
+    .liked-card img {
+      width: 220px;
+      height: 140px;
+      object-fit: cover;
+    }
+    .liked-card-content {
+      padding: 12px;
+    }
+    .liked-card-content h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #8B0000;
+    }
+    .liked-card-content p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Liked Properties</h1>
+  <div id="likedContainer"></div>
+
+  <script>
+    const liked = JSON.parse(localStorage.getItem('likedProperties')) || [];
+    const container = document.getElementById('likedContainer');
+
+    if (liked.length === 0) {
+      container.innerHTML = "<p>You haven't liked any properties yet.</p>";
+    } else {
+      liked.forEach(prop => {
+        const card = document.createElement('div');
+        card.className = 'liked-card';
+        card.innerHTML = `
+          <img src="${prop.image}" alt="${prop.title}">
+          <div class="liked-card-content">
+            <h3>${prop.title}</h3>
+            <p>${prop.location}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
