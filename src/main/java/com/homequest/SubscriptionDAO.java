@@ -27,11 +27,8 @@ public class SubscriptionDAO {
         }
     }
 
-    /**
-     * Retrieves a subscription by its type (primary key).
-     * @param subscriptionType the type key
-     * @return Subscription object or null if not found
-     */
+
+    //get subscription by primary key
     public Subscription getSubscriptionByType(String subscriptionType) {
         String sql = "SELECT subscriptionType, startDate FROM Subscriptions WHERE subscriptionType = ?";
         try (Connection conn = DatabaseConnector.getConnection();

@@ -20,7 +20,7 @@ enum PropertyType {
         return dbValue;
     }
 
-    // Helper method to get Enum from database string value
+    // Helper to get Enum from database string value
     public static PropertyType fromDbValue(String value) {
         if (value == null) return null;
         for (PropertyType type : values()) {
@@ -29,7 +29,6 @@ enum PropertyType {
             }
         }
         throw new IllegalArgumentException("Unknown PropertyType value: " + value);
-        // Or return null / default value depending on error
     }
 }
 
@@ -83,7 +82,7 @@ public class Property {
         this.numberOfRooms = numberOfRooms;
         this.propertyType = propertyType;
         this.isForRent = isForRent;
-        // Ensure rentDuration is null if not for rent
+        //rentDuration is null if not for rent
         this.rentDuration = (isForRent != null && isForRent) ? rentDuration : null;
         this.verificationStatus = verificationStatus; // Initial status, might be set by verification process
     }
@@ -101,7 +100,7 @@ public class Property {
     public Boolean getIsForRent() { return isForRent; }
     public Integer getRentDuration() { return rentDuration; }
     public Boolean getVerificationStatus() { return verificationStatus; }
-    public List<String> getImagePaths() { return imagePaths; } // Getter for transient field
+    public List<String> getImagePaths() { return imagePaths; } // Getter for tmep. field
 
     //setters - creating/updating before DB interaction
 

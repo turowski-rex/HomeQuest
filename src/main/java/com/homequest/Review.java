@@ -18,7 +18,6 @@ public class Review {
     }
 
     public boolean submitComment() {
-        // Simple implementation: if a comment is provided, simulate submission.
         if (comment != null && !comment.trim().isEmpty()) {
             System.out.println("Comment submitted: " + comment);
             return true;
