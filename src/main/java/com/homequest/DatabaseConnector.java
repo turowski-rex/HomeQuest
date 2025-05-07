@@ -13,23 +13,18 @@ public class DatabaseConnector {
     private static Connection connection = null;
     private DatabaseConnector() {}
 
-    /**
-     * singleton database connection instance
-     * establish connection
-     *
-     * @return active database connection
-     * @throws SQLException database error handling
-     */
+    // singleton database connection
     public static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             try {
-                // make sure the JDBC driver JAR is inside the project classpath
+                // I put the JDBC driver JAR inside the project classpath - DOM
                 Class.forName("com.mysql.cj.jdbc.Driver"); // for MySQL Connector/J
                 
                 System.out.println("Connecting to database...");
                 connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                 System.out.println("Database connection established.");
 
+            // error catchinig
             } catch (ClassNotFoundException e) {
                 System.err.println("JDBC Driver not found. Make sure the driver JAR is in the classpath.");
                 e.printStackTrace();
@@ -40,13 +35,13 @@ public class DatabaseConnector {
                 System.err.println("Error Code: " + e.getErrorCode());
                 System.err.println("Message: " + e.getMessage());
                 e.printStackTrace();
-                throw e; // throw exception
+                throw e;
             }
         }
         return connection;
     }
 
-    // close the singleton database connection if it is open.
+    //close the singleton database connection if it is open
     public static void closeConnection() {
         if (connection != null) {
             try {

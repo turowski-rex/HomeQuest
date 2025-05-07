@@ -48,11 +48,11 @@ public class Property {
     private Integer rentDuration;  // INT (nullable, e.g., in months)
     private Boolean verificationStatus; // BOOLEAN (Matching the column name)
 
-    // Transient field (not directly in Properties table, loaded from PropertyImages)
-    // Could be populated by a DAO method after loading the Property object
+    // Temp. field (not in Properties table, loaded from PropertyImages)
+    //populated by DAO method after loading the Property object
     private List<String> imagePaths;
 
-    // Constructor for loading data from Database (includes propertyID)
+    //constructor for loading data from Database (includes propertyID)
     public Property(int propertyID, int sellerID, String propertyName, String location, BigDecimal price,
                     Integer size, Integer numberOfRooms, PropertyType propertyType, Boolean isForRent,
                     Integer rentDuration, Boolean verificationStatus) {
@@ -65,12 +65,12 @@ public class Property {
         this.numberOfRooms = numberOfRooms;
         this.propertyType = propertyType;
         this.isForRent = isForRent;
-        // Ensure rentDuration is null if not for rent
+        //rentDuration = null if not for rent
         this.rentDuration = (isForRent != null && isForRent) ? rentDuration : null;
         this.verificationStatus = verificationStatus;
     }
 
-    // Constructor for creating a new Property before saving to DB (propertyID is auto-generated)
+    //constr for creating a new Property before saving to DB (propertyID is auto-generated)
     public Property(int sellerID, String propertyName, String location, BigDecimal price,
                     Integer size, Integer numberOfRooms, PropertyType propertyType, Boolean isForRent,
                     Integer rentDuration, Boolean verificationStatus) {
@@ -89,7 +89,7 @@ public class Property {
     }
 
 
-    // --- Getters ---
+    // getters
     public int getPropertyID() { return propertyID; }
     public int getSellerID() { return sellerID; }
     public String getPropertyName() { return propertyName; }
@@ -103,10 +103,10 @@ public class Property {
     public Boolean getVerificationStatus() { return verificationStatus; }
     public List<String> getImagePaths() { return imagePaths; } // Getter for transient field
 
-    // --- Setters --- (Mainly for creating/updating before DB interaction)
+    //setters - creating/updating before DB interaction
 
     // propertyID is set by the DB or constructor, no public setter needed.
-    public void setSellerID(int sellerID) { this.sellerID = sellerID; } // Needed when creating new property
+    public void setSellerID(int sellerID) { this.sellerID = sellerID; } //needed when creating new property
     public void setPropertyName(String propertyName) { this.propertyName = propertyName; }
     public void setLocation(String location) { this.location = location; }
     public void setPrice(BigDecimal price) { this.price = price; }
@@ -121,18 +121,18 @@ public class Property {
          }
     }
     public void setRentDuration(Integer rentDuration) {
-        // Only allow setting duration if it's for rent
+        //only allows setting duration if it's for rent
         if (this.isForRent != null && this.isForRent) {
              this.rentDuration = rentDuration;
         } else {
-            this.rentDuration = null; // Ensure it's null if not for rent
+            this.rentDuration = null; // null if not for rent
             System.err.println("Warning: Cannot set rent duration unless property IsForRent is true.");
         }
     }
     public void setVerificationStatus(Boolean verificationStatus) { this.verificationStatus = verificationStatus; }
-    public void setImagePaths(List<String> imagePaths) { this.imagePaths = imagePaths; } // Setter for transient field
+    public void setImagePaths(List<String> imagePaths) { this.imagePaths = imagePaths; } // Setter for temp field
 
-    // --- toString() method for basic representation ---
+    // toString() = basic representation
     @Override
     public String toString() {
         return "Property{" +
@@ -150,21 +150,5 @@ public class Property {
                 ", imagePaths=" + (imagePaths != null ? imagePaths.size() + " images" : "none") +
                 '}' ;
     }
-
-    // --- From what I understand, these methods need to be moved to DAO (Data-Access-Object) classes ---
-    /*
-    public void updateDetails(String newLocation, double newPrice, double newSize, int newNumRooms, String newType) {
-        // This logic now belongs in a DAO/Service class that takes a Property object
-        // and generates a SQL UPDATE statement.
-        System.out.println("[Refactored] Property update logic should be in PropertyDAO/Service.");
-    }
-
-    public boolean verifyDocuments(String propertyID) {
-        // Verification involves updating PropertyVerification table and potentially
-        // the verificationStatus field here. Belongs in PropertyVerificationDAO/Service.
-        System.out.println("[Refactored] Property verification logic should be in PropertyVerificationDAO/Service.");
-        return false;
-    }
-    */
 
 }
