@@ -121,7 +121,7 @@
       });
       if (res.ok) {
         const seller = await res.json();
-        localStorage.setItem('sellerID', seller.sellerID);
+        sessionStorage.setItem('sellerID', seller.sellerID);
         window.location.href = 'userhomepage.html';
       } else {
         alert('Login failed: ' + res.statusText);
