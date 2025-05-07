@@ -48,7 +48,8 @@ public class PropertyController {
             @RequestParam(required = false) Boolean isForRent,
             @RequestParam(required = false) Integer minRentDuration,
             @RequestParam(required = false) Integer maxRentDuration,
-            @RequestParam(required = false) Boolean verificationStatus) {
+            @RequestParam(required = false) Boolean verificationStatus,
+            @RequestParam(required = false) Integer sellerID) {
 
         return propertyDAO.getFilteredProperties(
                 location,
@@ -62,8 +63,9 @@ public class PropertyController {
                 isForRent,
                 minRentDuration,
                 maxRentDuration,
-                verificationStatus);
-    }
+                verificationStatus,
+                sellerID);
+                }
 
     @GetMapping("/{propertyID}")
     public ResponseEntity<Property> getPropertyById(@PathVariable int propertyID) {
@@ -76,7 +78,10 @@ public class PropertyController {
     }
 
     @PostMapping
-    public ResponseEntity<Property> createProperty(@RequestBody Property property) {
+    public ResponseEntity<Property> createProperty(@RequestBody Property property) { //@RequestBody contains the property details + sellerID
+        if (property.getSellerID() == 0) {
+            return ResponseEntity.badRequest().body(null);
+        }
         Property createdProperty = propertyDAO.createProperty(property);
         if (createdProperty != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(createdProperty);
@@ -85,8 +90,22 @@ public class PropertyController {
         }
     }
 
+    //endpoint - update property details
+    //@RequestBody HAS TO have:
+    // { \"location\": \"string\", \"price\": BigDecimal, \"size\": Integer, \"numberOfRooms\": Integer, \"propertyType\": PropertyType (as string) }
     @PutMapping("/{propertyID}")
     public ResponseEntity<Void> updateProperty(@PathVariable int propertyID, @RequestBody Property property) {
+        boolean success = propertyDAO.updateProperty(propertyID, property);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    //update specific details
+    @PatchMapping("/{propertyID}/details")
+    public ResponseEntity<Void> updatePropertyDetails(@PathVariable int propertyID, @RequestBody Property property) { // RequestBody with partial details
         boolean success = propertyDAO.updateProperty(propertyID, property);
         if (success) {
             return ResponseEntity.ok().build();
@@ -149,5 +168,15 @@ public class PropertyController {
         }
 
         return ResponseEntity.ok("Files uploaded successfully");
+    }
+
+    //get all properties for specific seller by ID
+    @GetMapping("/seller/{sellerID}")
+    public ResponseEntity<List<Property>> getPropertiesBySellerId(@PathVariable int sellerID) {
+        List<Property> properties = propertyDAO.getPropertiesBySellerId(sellerID);
+        if (!properties.isEmpty()) {
+            return ResponseEntity.ok(properties);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }
