@@ -13,19 +13,42 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PropertyDAO {
 
-    public void updateDetails(Property property, String newLocation, BigDecimal newPrice, Integer newSize, Integer newNumberOfRooms, PropertyType newType) {
-        // This method needs to be updated to interact with the database as well
-        System.out.println("Update details method in PropertyDAO needs database implementation.");
-        // Placeholder logic (does not persist to DB)
-        property.setLocation(newLocation);
-        property.setPrice(newPrice);
-        property.setSize(newSize);
-        property.setNumberOfRooms(newNumberOfRooms);
-        property.setPropertyType(newType);
-        System.out.println("Updated Details for:" + property.getPropertyID());
+    public boolean updateDetails(int propertyID, String newLocation, BigDecimal newPrice, Integer newSize, Integer newNumberOfRooms, PropertyType newType) {
+        String sql = "UPDATE Properties SET location = ?, price = ?, size = ?, numberOfRooms = ?, propertyType = ? WHERE propertyID = ?";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, newLocation);
+            pstmt.setBigDecimal(2, newPrice);
+            
+            // Handle nullable fields
+            if (newSize != null) {
+                pstmt.setInt(3, newSize);
+            } else {
+                pstmt.setNull(3, java.sql.Types.INTEGER);
+            }
+            if (newNumberOfRooms != null) {
+                pstmt.setInt(4, newNumberOfRooms);
+            } else {
+                pstmt.setNull(4, java.sql.Types.INTEGER);
+            }
+
+            pstmt.setString(5, newType != null ? newType.getDbValue() : null);
+            pstmt.setInt(6, propertyID);
+
+            int affectedRows = pstmt.executeUpdate();
+
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error updating property details: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    // Method to get properties from the database with filtering options
+    //get properties from the database with filtering
     public List<Property> getFilteredProperties(
             String location,
             BigDecimal minPrice,
@@ -38,12 +61,17 @@ public class PropertyDAO {
             Boolean isForRent,
             Integer minRentDuration,
             Integer maxRentDuration,
-            Boolean verificationStatus) {
+            Boolean verificationStatus,
+            Integer sellerID) {
 
         List<Property> properties = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT p.propertyID, p.sellerID, p.propertyName, p.location, p.price, p.size, p.numberOfRooms, p.propertyType, p.isForRent, p.rentDuration, p.verificationStatus, pi.imagePath FROM Properties p LEFT JOIN PropertyImages pi ON p.propertyID = pi.propertyID WHERE 1=1");
 
-        // Add filters based on provided parameters
+        //sellerID filter
+        if (sellerID != null) {
+            sql.append(" AND p.sellerID = ?");
+        }
+        //filters of parameters
         if (location != null && !location.isEmpty()) {
             sql.append(" AND p.location LIKE ?");
         }
@@ -91,7 +119,10 @@ public class PropertyDAO {
         }
 
         //group by property to handle multiple images per property
-        sql.append(" GROUP BY p.propertyID");
+        sql.append(" GROUP BY p.propertyID, p.sellerID, p.propertyName, p.location, p.price, p.size, p.numberOfRooms, p.propertyType, p.isForRent, p.rentDuration, p.verificationStatus, pi.imagePath");
+
+        //order by PropertyID
+        sql.append(" ORDER BY p.propertyID");
 
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
@@ -99,6 +130,9 @@ public class PropertyDAO {
             int paramIndex = 1;
             if (location != null && !location.isEmpty()) {
                 pstmt.setString(paramIndex++, "%" + location + "%");
+            }
+            if (sellerID != null) {
+                pstmt.setInt(paramIndex++, sellerID);
             }
             if (minPrice != null) {
                 pstmt.setBigDecimal(paramIndex++, minPrice);
@@ -148,7 +182,7 @@ public class PropertyDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     int propertyID = rs.getInt("propertyID");
-                    int sellerID = rs.getInt("sellerID");
+                    int propSellerID = rs.getInt("sellerID");
                     String propertyName = rs.getString("propertyName");
                     String propLocation = rs.getString("location");
                     BigDecimal price = rs.getBigDecimal("price");
@@ -167,11 +201,11 @@ public class PropertyDAO {
                     Integer rentDurationValue = rs.getObject("rentDuration", Integer.class); // Use getObject for nullable INT
                     Boolean verificationStatusValue = rs.getBoolean("verificationStatus");
 
-                    Property property = new Property(propertyID, sellerID, propertyName, propLocation, price,
+                    Property property = new Property(propertyID, propSellerID, propertyName, propLocation, price,
                                                size, numberOfRooms, propType, isForRentValue,
                                                rentDurationValue, verificationStatusValue);
                                                
-                    // Fetch image paths for this property
+                    //image paths for property
                     List<String> imagePaths = getImagePathsForProperty(propertyID);
                     property.setImagePaths(imagePaths);
 
@@ -182,15 +216,17 @@ public class PropertyDAO {
         } catch (SQLException e) {
             System.err.println("Error fetching filtered properties: " + e.getMessage());
             e.printStackTrace();
-            // Depending on error handling strategy, you might want to throw a custom exception
         }
         return properties;
     }
 
     //get a property by ID from DB
     public Property getPropertyById(int propertyID) {
+        if (propertyID <= 0) {
+            System.err.println("Invalid propertyID for fetching property.");
+            return null;
+        }
         String sql = "SELECT propertyID, sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus FROM Properties WHERE propertyID = ?";
-
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -210,7 +246,6 @@ public class PropertyDAO {
                             propertyType = PropertyType.fromDbValue(propertyTypeString);
                         } catch (IllegalArgumentException e) {
                              System.err.println("Warning: Unknown PropertyType value in database: " + propertyTypeString);
-                            // Depending on requirements, you might set a default, leave null, or skip this property
                         }
                     }
                     Boolean isForRent = rs.getBoolean("isForRent");
@@ -221,7 +256,6 @@ public class PropertyDAO {
                                         size, numberOfRooms, propertyType, isForRent,
                                         rentDuration, verificationStatus);
                     
-                    // Fetch image paths for this property
                     List<String> imagePaths = getImagePathsForProperty(propertyID);
                     property.setImagePaths(imagePaths);
 
@@ -236,10 +270,21 @@ public class PropertyDAO {
         return null;
     }
 
-    // Method to add a new property to the database
+    //add new property to the database
     public Property createProperty(Property property) {
+        //validation
+        if (property.getSellerID() <= 0 || property.getPropertyName() == null || property.getPropertyName().trim().isEmpty() ||
+            property.getLocation() == null || property.getLocation().trim().isEmpty() || property.getPrice() == null) {
+            System.err.println("Invalid data for property creation.");
+            return null;
+        }
+        if (property.getIsForRent() && property.getRentDuration() == null) {
+             System.err.println("Rent duration is required for rental properties.");
+             return null;
+        }
+
         String sql = "INSERT INTO Properties (sellerID, propertyName, location, price, size, numberOfRooms, propertyType, isForRent, rentDuration, verificationStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -247,8 +292,7 @@ public class PropertyDAO {
             pstmt.setString(2, property.getPropertyName());
             pstmt.setString(3, property.getLocation());
             pstmt.setBigDecimal(4, property.getPrice());
-            
-            // Handle nullable fields
+
             if (property.getSize() != null) {
                 pstmt.setInt(5, property.getSize());
             } else {
@@ -259,7 +303,7 @@ public class PropertyDAO {
             } else {
                 pstmt.setNull(6, java.sql.Types.INTEGER);
             }
-            
+
             pstmt.setString(7, property.getPropertyType() != null ? property.getPropertyType().getDbValue() : null);
             pstmt.setBoolean(8, property.getIsForRent());
 
@@ -268,7 +312,7 @@ public class PropertyDAO {
             } else {
                 pstmt.setNull(9, java.sql.Types.INTEGER);
             }
-            
+
             pstmt.setBoolean(10, property.getVerificationStatus()); //init status is set in the Property object
 
             int affectedRows = pstmt.executeUpdate();
@@ -303,6 +347,16 @@ public class PropertyDAO {
 
     // Method to update an existing property in the database
     public boolean updateProperty(int propertyID, Property property) {
+         if (propertyID <= 0) {
+             System.err.println("Invalid propertyID for property update.");
+             return false;
+         }
+         // Basic validation for the property object
+        if (property.getSellerID() <= 0 || property.getPropertyName() == null || property.getPropertyName().trim().isEmpty() ||
+            property.getLocation() == null || property.getLocation().trim().isEmpty() || property.getPrice() == null) {
+            System.err.println("Invalid data in property object for update.");
+            return false;
+        }
         String sql = "UPDATE Properties SET sellerID = ?, propertyName = ?, location = ?, price = ?, size = ?, numberOfRooms = ?, propertyType = ?, isForRent = ?, rentDuration = ?, verificationStatus = ? WHERE propertyID = ?";
 
         try (Connection conn = DatabaseConnector.getConnection();
@@ -350,6 +404,10 @@ public class PropertyDAO {
 
     //delete a property from database by ID
     public boolean deleteProperty(int propertyID) {
+        if (propertyID <= 0) {
+             System.err.println("Invalid propertyID for property deletion.");
+             return false;
+         }
         String sql = "DELETE FROM Properties WHERE propertyID = ?";
 
         try (Connection conn = DatabaseConnector.getConnection();
@@ -370,6 +428,10 @@ public class PropertyDAO {
 
     //add an image path for property to the database
     public boolean addImagePath(int propertyID, String imagePath) {
+         if (propertyID <= 0 || imagePath == null || imagePath.trim().isEmpty()) {
+             System.err.println("Invalid propertyID or imagePath for adding image.");
+             return false;
+         }
         String sql = "INSERT INTO PropertyImages (propertyID, imagePath) VALUES (?, ?)";
 
         try (Connection conn = DatabaseConnector.getConnection();
@@ -391,6 +453,10 @@ public class PropertyDAO {
 
     //get image paths for a property
     public List<String> getImagePathsForProperty(int propertyID) {
+        if (propertyID <= 0) {
+             System.err.println("Invalid propertyID for fetching image paths.");
+             return new ArrayList<>();
+         }
         List<String> imagePaths = new ArrayList<>();
         String sql = "SELECT imagePath FROM PropertyImages WHERE propertyID = ?";
 
@@ -410,5 +476,41 @@ public class PropertyDAO {
             e.printStackTrace();
         }
         return imagePaths;
+    }
+
+    //get all properties for a specific seller
+    public List<Property> getPropertiesBySellerId(int sellerID) {
+         if (sellerID <= 0) {
+             System.err.println("Invalid sellerID for fetching properties.");
+             return new ArrayList<>();
+         }
+        List<Property> properties = new ArrayList<>();
+        String sql = "SELECT p.propertyID, p.sellerID, p.propertyName, p.location, p.price, p.size, p.numberOfRooms, p.propertyType, p.isForRent, p.rentDuration, p.verificationStatus, pi.imagePath FROM Properties p LEFT JOIN PropertyImages pi ON p.propertyID = pi.propertyID WHERE p.sellerID = ? GROUP BY p.propertyID, p.sellerID, p.propertyName, p.location, p.price, p.size, p.numberOfRooms, p.propertyType, p.isForRent, p.rentDuration, p.verificationStatus, pi.imagePath ORDER BY p.propertyID";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, sellerID);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                     properties.add(new Property(
+                        rs.getInt("propertyID"),
+                        rs.getInt("sellerID"),
+                        rs.getString("propertyName"),
+                        rs.getString("location"),
+                        rs.getBigDecimal("price"),
+                        rs.getObject("size", Integer.class),
+                        rs.getObject("numberOfRooms", Integer.class),
+                        PropertyType.fromDbValue(rs.getString("propertyType")),
+                        rs.getBoolean("isForRent"),
+                        rs.getObject("rentDuration", Integer.class),
+                        rs.getBoolean("verificationStatus")));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching properties for seller ID " + sellerID + ": " + e.getMessage());
+        }
+        return properties;
     }
 }
