@@ -193,10 +193,48 @@
   display: inline-block;
   margin-bottom: 8px; 
 }
+.card .heart-icon svg.filled {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
 
   </style>
 </head>
-<body>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const liked = JSON.parse(localStorage.getItem('likedProperties')) || [];
+
+    document.querySelectorAll('.card').forEach(card => {
+      const title = card.querySelector('h3').innerText;
+      const location = card.querySelectorAll('p')[0].innerText;
+      const icon = card.querySelector('.heart-icon svg');
+
+      const isLiked = liked.find(p => p.title === title && p.location === location);
+      if (isLiked) {
+        icon.classList.add('filled');
+      }
+
+      icon.addEventListener('click', () => {
+        const image = card.querySelector('img').src;
+        const index = liked.findIndex(p => p.title === title && p.location === location);
+
+        if (index === -1) {
+          liked.push({ title, location, image });
+          icon.classList.add('filled');
+        } else {
+          liked.splice(index, 1);
+          icon.classList.remove('filled');
+        }
+
+        localStorage.setItem('likedProperties', JSON.stringify(liked));
+      });
+    });
+  });
+</script>
+
+
+</body>
+  
   <header>
     <div class="logo-section">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="#8B0000">
@@ -344,17 +382,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
       </svg>
-
-
-
-
-
-
-
-
-
-
-
     </div>
     <img src="https://www.hayesparsons.co.uk/app/uploads/2024/11/rachel-penney-Xm0EocnRbjg-unsplash-1-1024x426.jpg" alt="British Mansion" />
     <div class="card-content">
@@ -366,13 +393,6 @@
       <div class="property-label">Rent</div>
       <div class="price-level">$$$</div>
       <div class="view-button">View Property</div>
-
-
-
-
-
-
-
     </div>
   </div>
   
@@ -382,15 +402,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
       </svg>
-
-
-
-
-
-
-
-
-
     </div>
     <img src="https://r-cf.bstatic.com/xdata/images/hotel/max1024x768/233724588.jpg?k=31cfc13693d0845894014af141ab55ab782b648429fd733c50a6feed3ef1fb72&o=" alt="Overwater Villa" />
     <div class="card-content">
@@ -402,13 +413,6 @@
       <div class="property-label">Rent</div>
       <div class="price-level">$</div>
       <div class="view-button">View Property</div>
-
-
-
-
-
-
-
     </div>
   </div>
   
