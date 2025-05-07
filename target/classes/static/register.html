@@ -66,10 +66,12 @@
       color: white;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
     }
     .register-form button:hover {
-      background-color: #a40000;
+      background-color: white;
+      color: #8B0000;
+      border: 2px solid #8B0000;
     }
     .register-link {
       font-size: 14px;
@@ -90,9 +92,7 @@
   </div>
   <h1>HOMEQUEST</h1>
 
-  <!-- Added id="registerForm" -->
   <form id="registerForm" class="register-form">
-    <!-- Added name attributes -->
     <input type="text"    name="fullName"        placeholder="Full Name" required>
     <input type="email"   name="email"           placeholder="Email"     required>
     <input type="password"name="password"        placeholder="Password"  required>
@@ -116,7 +116,6 @@
       const password        = ev.target.password.value;
       const confirmPassword = ev.target.confirmPassword.value;
 
-      // Simple confirm-password check
       if (password !== confirmPassword) {
         alert("Passwords don't match.");
         return;

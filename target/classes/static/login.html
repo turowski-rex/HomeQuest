@@ -64,16 +64,18 @@
     .login-form button {
       padding: 10px;
       font-size: 16px;
-      border: none;
+      border: 2px solid transparent;
       border-radius: 12px;
       background-color: #8B0000;
       color: white;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     .login-form button:hover {
-      background-color: #a40000;
+      background-color: white;
+      color: #8B0000;
+      border-color: #8B0000;
     }
     .register-link, .guest-link {
       font-size: 14px;
@@ -99,7 +101,6 @@
   </div>
 
   <form id="loginForm" class="login-form" aria-label="Login Form">
-    <!-- Added name attributes so JS can read them -->
     <input type="email" name="email" placeholder="Email" required />
     <input type="password" name="password" placeholder="Password" required />
     <button type="submit">Login</button>

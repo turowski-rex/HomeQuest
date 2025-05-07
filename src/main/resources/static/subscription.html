@@ -36,30 +36,34 @@
     .highlight { color: silver; font-weight: bold; }
     .gold      { color: #b8860b; font-weight: bold; }
     .plan-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
     }
     .plan-box {
       background-color: white;
       border: 2px solid #8B0000;
       border-radius: 32px;
-      padding: 20px 30px;
+      padding: 20px;
       text-align: center;
-      width: 180px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
       text-decoration: none;
       color: inherit;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .plan-box:hover {
       background-color: #8B0000;
       color: white;
     }
     .plan-box h3, .plan-box p {
-      margin: 0 0 8px;
+      margin: 4px 0;
       font-family: 'Epilogue', sans-serif;
       font-size: 16px;
     }
@@ -72,41 +76,38 @@
   <div class="page-title">Choose Your Plan</div>
 
   <div class="choose-section">
-    Stay <span class="highlight">Silver</span> or go <span class="gold">Gold</span>
+    Stay <strong>Silver</strong> or go <strong>Gold</strong>
   </div>
 
-  <!-- SHOW current subscription here -->
   <div id="current-sub" class="choose-section">
-    Loading your subscription…
+    For only:
   </div>
 
   <div class="plan-container">
-    <div class="plan-box" data-type="Weekly">
+    <a href="payment.html" class="plan-box" data-type="Weekly">
       <h3>Pay Weekly</h3>
       <p>$1.50/week</p>
-    </div>
-    <div class="plan-box" data-type="Monthly">
+    </a>
+    <a href="payment.html" class="plan-box" data-type="Monthly">
       <h3>Pay Monthly</h3>
       <p>$5.00/month</p>
-    </div>
-    <div class="plan-box" data-type="Quarterly">
+    </a>
+    <a href="payment.html" class="plan-box" data-type="Quarterly">
       <h3>Pay Quarterly</h3>
       <p>$13.00/quarter</p>
-    </div>
-    <div class="plan-box" data-type="Yearly">
+    </a>
+    <a href="payment.html" class="plan-box" data-type="Yearly">
       <h3>Pay Yearly</h3>
       <p>$50.00/year</p>
-    </div>
+    </a>
   </div>
 
   <script>
     const currentSubEl = document.getElementById('current-sub');
     const storedType = sessionStorage.getItem('subscriptionType');
 
-    // 1) Load & display current subscription
     async function loadCurrent() {
       if (!storedType) {
-        currentSubEl.textContent = 'You have no active subscription.';
         return;
       }
       try {
@@ -121,30 +122,6 @@
       }
     }
     loadCurrent();
-
-    // 2) Click handler for each plan
-    document.querySelectorAll('.plan-box').forEach(box => {
-      box.addEventListener('click', async () => {
-        const newType = box.dataset.type;
-        try {
-          const res = await fetch('/api/subscriptions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              subscriptionType: newType, 
-              startDate: new Date()
-            })
-          });
-          if (!res.ok) throw new Error(await res.text());
-          sessionStorage.setItem('subscriptionType', newType);
-          alert(`Subscribed as ${newType}!`);
-          loadCurrent();
-        } catch (err) {
-          console.error(err);
-          alert('Subscription failed: ' + err.message);
-        }
-      });
-    });
   </script>
 </body>
 </html>
