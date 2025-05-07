@@ -23,65 +23,69 @@
       justify-content: center;
       padding: 2rem;
       width: 100%;
-      max-width: 768px;
+      max-width: 720px;
     }
     .logo {
-      height: 64px;
-      margin-bottom: 1.5rem;
+      height: 48px;
+      margin-bottom: 1rem;
     }
     .box {
       background: white;
       width: 100%;
-      border-radius: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 1.25rem;
     }
     h2 {
       font-family: 'Epilogue', sans-serif;
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.75rem;
+      font-weight: 700;
       color: #8B0000;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
     }
     form {
-      width: 100%;
-      max-width: 600px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
     input, textarea, select {
       width: 100%;
+      box-sizing: border-box;
       padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 0.5rem;
+      border-radius: 0.75rem;
       font-size: 1rem;
       font-family: 'Inter', sans-serif;
       background-color: #fff;
       color: #333;
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%238B0000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 0.75rem center;
-      background-size: 1rem;
     }
     textarea {
       resize: vertical;
       min-height: 100px;
     }
-    select:focus, input:focus, textarea:focus {
+    select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%238B0000" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1rem;
+    }
+    input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: #8B0000;
-      box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
+      box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.1);
     }
     .upload-section {
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
     }
     .upload-label {
-      display: block;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
+      font-weight: 500;
       color: #444;
       margin-bottom: 0.5rem;
     }
@@ -89,7 +93,7 @@
       width: 96px;
       height: 96px;
       border: 2px dashed #8B0000;
-      border-radius: 0.5rem;
+      border-radius: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -115,8 +119,9 @@
       border: none;
       width: 100%;
       font-size: 1rem;
-      border-radius: 0.5rem;
+      border-radius: 0.75rem;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
     .button:hover {
       background-color: white;
@@ -139,11 +144,17 @@
 
         <input type="text" name="title" placeholder="Title" />
         <textarea name="description" placeholder="Description"></textarea>
-        <input type="text" name="price" placeholder="$$$" />
+        <input type="number" name="price" placeholder="Price" />
         <input type="text" name="country" placeholder="Country" />
         <input type="text" name="city" placeholder="City" />
 
-        <input type="text" name="propertyType" placeholder="Property Type" />
+        <select name="propertyType">
+          <option value="">Select Property Type</option>
+          <option value="apartment">Apartment</option>
+          <option value="house">House</option>
+          <option value="condo">Condo</option>
+          <option value="land">Land</option>
+        </select>
 
         <input type="text" name="size" placeholder="Property Size (m²)" />
         <input type="text" name="rooms" placeholder="Number of Rooms" />
