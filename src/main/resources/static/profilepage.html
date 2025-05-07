@@ -94,17 +94,23 @@
   </div>
 
   <script>
-    // Simulated fetch from an API endpoint
-    fetch('/api/user')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('user-name').textContent = data.name;
-        document.getElementById('user-email').textContent = data.email;
-      })
-      .catch(() => {
-        document.getElementById('user-name').textContent = 'Failed to load';
-        document.getElementById('user-email').textContent = 'Failed to load';
-      });
+   const sellerID = localStorage.getItem("sellerID");
+
+if (sellerID) {
+  fetch(`/api/sellers/${sellerID}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('user-name').textContent = data.fullName;
+      document.getElementById('user-email').textContent = data.email;
+    })
+    .catch(() => {
+      document.getElementById('user-name').textContent = 'Failed to load';
+      document.getElementById('user-email').textContent = 'Failed to load';
+    });
+} else {
+  document.getElementById('user-name').textContent = 'Not logged in';
+  document.getElementById('user-email').textContent = '';
+}
 
     const propertyId = 1;
 
