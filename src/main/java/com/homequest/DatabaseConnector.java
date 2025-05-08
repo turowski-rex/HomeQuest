@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    // database connection details - replace user and password is yours is different
+    // database connection details - replace user and password is yours is different - DOM
     private static final String DB_URL = "jdbc:mysql://localhost:3306/HomeQuest"; // for MySQL
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "12345678abcd";
