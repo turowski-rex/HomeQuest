@@ -24,19 +24,19 @@
   </properties>
 
   <dependencies>
-    <!-- 1) Spring Web (Tomcat + MVC + REST) -->
+    <!-- Spring Web (Tomcat + MVC + REST) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!-- 2) Spring JDBC (JdbcTemplate) -->
+    <!-- Spring JDBC (JdbcTemplate) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
 
-    <!-- 3) MySQL driver (artifactId must be mysql-connector-java) -->
+    <!-- MySQL driver (artifactId must be mysql-connector-java) -->
     <dependency>
      <groupId>mysql</groupId>
      <artifactId>mysql-connector-java</artifactId>
@@ -45,7 +45,7 @@
     </dependency>
 
 
-    <!-- 4) Thymeleaf (optional: server‐rendered HTML) -->
+    <!-- Thymeleaf -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
