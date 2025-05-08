@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Property Details - HOMEQUEST</title>
-  <link rel="stylesheet" href="login.css">
-  <link rel="stylesheet" href="property-detail.css">
+  <link rel="stylesheet" href="login.css"/>
+  <link rel="stylesheet" href="property-detail.css"/>
   <style>
+    :root {
+      --hq-primary:   #8B0000;
+      --hq-bg:        #ffffff;
+      --hq-overlay:   rgba(0,0,0,0.6);
+      --hq-text:      #333333;
+      --hq-border:    #e0e0e0;
+    }
+
     body {
       background-color: #f8f8f8;
       font-family: 'Inter', 'Epilogue', sans-serif;
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: var(--hq-text);
     }
 
     .property-box {
-      background: #fff;
+      background: var(--hq-bg);
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -32,11 +40,12 @@
     .home-icon svg {
       width: 64px;
       height: 64px;
-      fill: #8B0000;
+      fill: var(--hq-primary);
     }
 
     h2 {
       font-size: 28px;
+      margin: 0 0 10px;
     }
 
     .status-label {
@@ -75,11 +84,11 @@
       stroke-width: 2;
       z-index: 1;
       transition: fill 0.3s, stroke 0.3s;
+      cursor: pointer;
     }
-
     .heart-icon:hover {
-      fill: #8B0000;
-      stroke: #8B0000;
+      fill: var(--hq-primary);
+      stroke: var(--hq-primary);
     }
 
     .carousel-image {
@@ -105,7 +114,6 @@
       opacity: 0.6;
       transition: opacity 0.3s;
     }
-
     .thumbnails img.active,
     .thumbnails img:hover {
       opacity: 1;
@@ -124,7 +132,6 @@
       font-size: 15px;
       line-height: 1.6;
     }
-
     .property-description p {
       text-indent: 2em;
       margin-bottom: 1em;
@@ -134,21 +141,57 @@
       margin-top: 30px;
       text-align: center;
     }
-
-    .contact-section button {
-      background-color: #8B0000;
-      color: white;
+    .contact-section .hq-btn {
+      display: inline-block;
+      background: var(--hq-primary);
+      color: #fff;
       padding: 12px 20px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       font-weight: bold;
+      text-decoration: none;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: filter 0.2s ease;
+    }
+    .contact-section .hq-btn:hover {
+      filter: brightness(0.9);
     }
 
-    .contact-section button:hover {
-      background-color: #a10000;
+    /* Modal */
+    .hq-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--hq-overlay);
+    }
+    .hq-modal:target {
+      display: block;
+    }
+    .hq-modal-content {
+      background: var(--hq-bg);
+      max-width: 400px;
+      width: 90%;
+      margin: 10% auto;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--hq-border);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      position: relative;
+      color: var(--hq-text);
+    }
+    .hq-modal-content h3 {
+      margin-top: 0;
+    }
+    .hq-modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      text-decoration: none;
+      font-size: 1.5rem;
+      color: var(--hq-text);
+      line-height: 1;
     }
   </style>
 </head>
@@ -156,7 +199,7 @@
   <div class="property-box">
     <div class="home-icon">
       <svg id="logo-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 28 L32 8 L56 28 V56 H8 Z" />
+        <path d="M8 28 L32 8 L56 28 V56 H8 Z"/>
       </svg>
     </div>
     <h2>Tuscan Villa with Vineyard</h2>
@@ -166,13 +209,20 @@
         <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
         </svg>
-        <img id="main-image" class="carousel-image" src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1353i215%2Fhgzk53f6gjsdmaahqpk9xbpmb5i215&option=N&h=472&permitphotoenlargement=false" alt="Tuscan Villa with Vineyard">
+        <img id="main-image" class="carousel-image"
+             src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1353i215%2Fhgzk53f6gjsdmaahqpk9xbpmb5i215&option=N&h=472&permitphotoenlargement=false"
+             alt="Tuscan Villa with Vineyard">
         <div class="thumbnails">
-          <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1353i215%2Fhgzk53f6gjsdmaahqpk9xbpmb5i215&option=N&h=472&permitphotoenlargement=false" alt="Thumb 1" onclick="setMainImage(this)" class="active">
-          <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/22/22705.jpg" alt="Thumb 2" onclick="setMainImage(this)">
-          <img src="https://images.ctfassets.net/wlzmdirin2hy/74gmJOUjskwk6qG90OY39J/6a2a7dc4a1376eb09a4b82f7f2f7e468/LX_Arizona67_HOM_Wright_07.jpg?w=3840&q=75" alt="Thumb 3" onclick="setMainImage(this)">
-          <img src="https://www.excellence.villas/wp-content/uploads/2015/03/09.jpg" alt="Thumb 4" onclick="setMainImage(this)">
-          <img src="https://media.vrbo.com/lodging/74000000/73360000/73356000/73355945/af7a25ab.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill" alt="Thumb 5" onclick="setMainImage(this)">
+          <img src="https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fm.sothebysrealty.com%2F1353i215%2Fhgzk53f6gjsdmaahqpk9xbpmb5i215&option=N&h=472&permitphotoenlargement=false"
+               alt="Thumb 1" onclick="setMainImage(this)" class="active">
+          <img src="https://aihkcdnstoragep01.blob.core.windows.net/pgl-release/Images/ArticleImages/22/22705.jpg"
+               alt="Thumb 2" onclick="setMainImage(this)">
+          <img src="https://images.ctfassets.net/wlzmdirin2hy/74gmJOUjskwk6qG90OY39J/6a2a7dc4a1376eb09a4b82f7f2f7e468/LX_Arizona67_HOM_Wright_07.jpg?w=3840&q=75"
+               alt="Thumb 3" onclick="setMainImage(this)">
+          <img src="https://www.excellence.villas/wp-content/uploads/2015/03/09.jpg"
+               alt="Thumb 4" onclick="setMainImage(this)">
+          <img src="https://media.vrbo.com/lodging/74000000/73360000/73356000/73355945/af7a25ab.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill"
+               alt="Thumb 5" onclick="setMainImage(this)">
         </div>
       </div>
       <div class="property-info">
@@ -181,18 +231,31 @@
         <strong>Bedrooms:</strong> 4<br>
         <strong>Bathrooms:</strong> 4<br>
         <strong>Amenities:</strong> Private Pool • Garden • Fireplace<br>
-        <strong>Price Level:</strong> $ 120,000<br>
+        <strong>Price:</strong> $ 120,000<br>
         <strong>Location:</strong> Tuscany, Italy<br>
         <strong>Type:</strong> Villa<br>
       </div>
       <div class="property-description">
-        <p>Immerse yourself in the Italian countryside at this elegant Tuscan villa. With its scenic vineyard surroundings, tranquil private pool, and charming rustic interiors, it’s ideal for a relaxing escape. Enjoy cozy evenings by the fireplace and peaceful mornings in the garden with a glass of local wine.</p>
+        <p>Immerse yourself in the Italian countryside at this elegant Tuscan villa. With its scenic vineyard surroundings,
+           tranquil private pool, and charming rustic interiors, it’s ideal for a relaxing escape. Enjoy cozy evenings by
+           the fireplace and peaceful mornings in the garden with a glass of local wine.</p>
       </div>
       <div class="contact-section">
-        <button type="button">Contact Property Owner</button>
+        <a href="#ownerModal" class="hq-btn">Contact Property Owner</a>
       </div>
     </div>
   </div>
+
+  <div id="ownerModal" class="hq-modal">
+    <div class="hq-modal-content">
+      <a href="#" class="hq-modal-close">&times;</a>
+      <h3>Owner Details</h3>
+      <p><strong>Name:</strong> John Doe</p>
+      <p><strong>Email:</strong> john@example.com</p>
+      <p><strong>Phone:</strong> +1 234 567 8900</p>
+    </div>
+  </div>
+
   <script>
     function setMainImage(thumb) {
       const mainImage = document.getElementById('main-image');

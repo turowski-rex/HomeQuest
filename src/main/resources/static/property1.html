@@ -136,6 +136,10 @@
       text-align: center;
     }
 
+    .contact-section a {
+      text-decoration: none;
+    }
+
     .contact-section button {
       background-color: #8B0000;
       color: white;
@@ -150,6 +154,37 @@
 
     .contact-section button:hover {
       background-color: #a10000;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal:target {
+      display: block;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 300px;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: left;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px; right: 15px;
+      text-decoration: none;
+      font-size: 24px;
+      color: #333;
     }
   </style>
 </head>
@@ -182,7 +217,7 @@
         <strong>Bedrooms:</strong> 4<br>
         <strong>Bathrooms:</strong> 5<br>
         <strong>Beds:</strong> 3 Single • 2 King<br>
-        <strong>Price Level:</strong> $ 250,000<br>
+        <strong>Price:</strong> $ 250,000<br>
         <strong>Location:</strong> Dubai, UAE<br>
         <strong>Type:</strong> Apartment<br>
       </div>
@@ -190,10 +225,23 @@
         <p>This luxurious oceanfront apartment in Dubai offers spacious accommodation for up to 7 guests, with elegant decor, high-speed Wi-Fi, a fully equipped kitchen, and private balconies with panoramic sea views. Perfect for families or groups seeking comfort and convenience, the apartment is near shops, restaurants, and cultural attractions, offering an unforgettable experience in a prime location.</p>
       </div>
       <div class="contact-section">
-        <button type="button">Contact Property Owner</button>
+        <a href="#ownerModal">
+          <button type="button">Contact Property Owner</button>
+        </a>
       </div>
     </div>
   </div>
+
+  <div id="ownerModal" class="modal">
+    <div class="modal-content">
+      <a href="#" class="close">&times;</a>
+      <h3>Owner Details</h3>
+      <p><strong>Name:</strong> John Doe</p>
+      <p><strong>Email:</strong> john@example.com</p>
+      <p><strong>Phone:</strong> +1 234 567 8900</p>
+    </div>
+  </div>
+
   <script>
     function setMainImage(thumb) {
       const mainImage = document.getElementById('main-image');

@@ -150,6 +150,50 @@
     .contact-section button:hover {
       background-color: #a10000;
     }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .modal:target {
+      display: block;
+    }
+    .modal-content {
+      background: #fff;
+      width: 320px;
+      margin: 8% auto;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      color: #333;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      border-bottom: 2px solid #8B0000;
+      padding-bottom: 0.2em;
+    }
+    .modal-content p {
+      margin: 0.5em 0;
+      line-height: 1.4;
+    }
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      text-decoration: none;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    .close:hover {
+      color: #8B0000;
+    }
   </style>
 </head>
 <body>
@@ -166,32 +210,54 @@
         <svg class="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
         </svg>
-        <img id="main-image" class="carousel-image" src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg" alt="Tuscan Villa with Vineyard">
+        <img id="main-image" class="carousel-image"
+             src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg"
+             alt="Tuscan Villa with Vineyard">
         <div class="thumbnails">
-          <img src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg" alt="Thumb 1" onclick="setMainImage(this)" class="active">
-          <img src="https://thumbs.cityrealty.com/assets/smart/1004x/webp/7/70/70c22d5bc7d21359ae1f1717bf97a6033afee866/30-park-place-1.jpg" alt="Thumb 2" onclick="setMainImage(this)">
-          <img src="https://thumbs.6sqft.com/wp-content/uploads/2018/10/26121020/BK-Point-Penthouse-D-1.jpg?w=1560&format=webp" alt="Thumb 3" onclick="setMainImage(this)">
-          <img src="https://thumbs.6sqft.com/wp-content/uploads/2024/12/16114915/Olympia-Dumbo-PH-B-11.jpg?w=1560&format=webp" alt="Thumb 4" onclick="setMainImage(this)">
-          <img src="https://media.architecturaldigest.com/photos/5698273ea7d16cbd6b658f6a/master/pass/160-Leroy-1.jpg" alt="Thumb 5" onclick="setMainImage(this)">
+          <img src="https://cottagesgardens.com/wp-content/uploads/2024/12/5-Rupert-Murdoch-Sells-NYC-Penthouse.jpg"
+               alt="Thumb 1" onclick="setMainImage(this)" class="active">
+          <img src="https://thumbs.cityrealty.com/assets/smart/1004x/webp/7/70/70c22d5bc7d21359ae1f1717bf97a6033afee866/30-park-place-1.jpg"
+               alt="Thumb 2" onclick="setMainImage(this)">
+          <img src="https://thumbs.6sqft.com/wp-content/uploads/2018/10/26121020/BK-Point-Penthouse-D-1.jpg?w=1560&format=webp"
+               alt="Thumb 3" onclick="setMainImage(this)">
+          <img src="https://thumbs.6sqft.com/wp-content/uploads/2024/12/16114915/Olympia-Dumbo-PH-B-11.jpg?w=1560&format=webp"
+               alt="Thumb 4" onclick="setMainImage(this)">
+          <img src="https://media.architecturaldigest.com/photos/5698273ea7d16cbd6b658f6a/master/pass/160-Leroy-1.jpg"
+               alt="Thumb 5" onclick="setMainImage(this)">
         </div>
+      </div>
+
       <div class="property-info">
         <strong>Rating:</strong> 9.3 / 10.0<br>
         <strong>Guests:</strong> 4<br>
         <strong>Bedrooms:</strong> 2<br>
         <strong>Bathrooms:</strong> 2<br>
         <strong>Features:</strong> Skyline View • Concierge • Gym<br>
-        <strong>Price Level:</strong> $ 750,000<br>
+        <strong>Price:</strong> $ 750,000<br>
         <strong>Location:</strong> New York City, USA<br>
         <strong>Type:</strong> Apartment<br>
       </div>
+
       <div class="property-description">
         <p>This premium penthouse apartment in New York City offers breathtaking skyline views, modern luxury finishes, and access to concierge services and a private gym. Ideal for upscale travelers seeking exclusivity and comfort in the heart of Manhattan.</p>
       </div>
+
       <div class="contact-section">
-        <button type="button">Contact Property Owner</button>
+        <a href="#ownerModal"><button type="button">Contact Property Owner</button></a>
       </div>
     </div>
   </div>
+
+  <div id="ownerModal" class="modal">
+    <div class="modal-content">
+      <a href="#" class="close">&times;</a>
+      <h3>Owner Details</h3>
+      <p><strong>Name:</strong> John Doe</p>
+      <p><strong>Email:</strong> john@example.com</p>
+      <p><strong>Phone:</strong> +1 234 567 8900</p>
+    </div>
+  </div>
+
   <script>
     function setMainImage(thumb) {
       const mainImage = document.getElementById('main-image');
